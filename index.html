@@ -3,30 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio Paleontología EAPIG</title>
+    <title>Laboratorio Paleontología EPIG</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; color: #333; text-align: center; }
-        header { background: linear-gradient(90deg, #8B0000 0%, #B22222 100%); color: white; padding: 60px 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { margin: 0; font-size: 2.8em; letter-spacing: 1px; }
-        p.subtitle { font-size: 1.3em; margin-top: 10px; opacity: 0.9; }
-        .container { max-width: 800px; margin: -30px auto 40px; padding: 40px; background: white; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); position: relative; }
+        /* AQUI VA TU IMAGEN DE FONDO */
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            color: #333; 
+            text-align: center;
+            
+            /* FONDO CONFIGURADO */
+            background-image: url('fondo.jpg'); 
+            
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        header { 
+            background: rgba(139, 0, 0, 0.9); 
+            color: white; 
+            padding: 60px 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
+        }
+
+        h1 { margin: 0; font-size: 2.8em; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        p.subtitle { font-size: 1.3em; margin-top: 10px; opacity: 1; font-weight: 500; }
+
+        .container { 
+            max-width: 800px; 
+            margin: 40px auto; 
+            padding: 40px; 
+            background: rgba(255, 255, 255, 0.95); 
+            border-radius: 15px; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5); 
+            position: relative; 
+        }
+
         h2 { color: #8B0000; margin-top: 0; }
-        .btn-download { display: inline-block; background-color: #D4AF37; color: white; padding: 18px 40px; text-decoration: none; font-size: 1.4em; border-radius: 50px; font-weight: bold; margin-top: 30px; transition: transform 0.2s, background-color 0.2s; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4); }
-        .btn-download:hover { background-color: #b5952f; transform: translateY(-3px); }
-        .instructions { background-color: #fff8e1; border-left: 5px solid #D4AF37; padding: 20px; margin-top: 40px; text-align: left; border-radius: 4px; }
-        .footer { margin-top: 40px; font-size: 0.9em; color: #666; padding-bottom: 20px; }
+        
+        .btn-download { 
+            display: inline-block; 
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            color: white; 
+            padding: 18px 40px; 
+            text-decoration: none; 
+            font-size: 1.4em; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            margin-top: 30px; 
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
+            border: 2px solid white;
+        }
+        
+        .btn-download:hover { 
+            transform: scale(1.05); 
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); 
+        }
+
+        .instructions { background-color: rgba(255, 248, 225, 0.9); border-left: 5px solid #D4AF37; padding: 20px; margin-top: 40px; text-align: left; border-radius: 4px; }
+        
+        .footer { margin-top: 40px; font-size: 0.9em; color: white; padding-bottom: 20px; text-shadow: 1px 1px 3px black; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <header>
         <h1>Laboratorio Virtual de Paleontología</h1>
-        <p class="subtitle">EAPIG - Universidad Nacional de Cajamarca</p>
+        <p class="subtitle">EPIG - Universidad Nacional de Cajamarca</p>
     </header>
 
     <div class="container">
         <h2>Catálogo Digital de Fósiles</h2>
-        <p>Herramienta oficial para la identificación, localización y estudio de la colección de fósiles (Cefalópodos, Bivalvos, etc.) del laboratorio.</p>
+        <p>Herramienta oficial para la identificación, localización y estudio de la colección de fósiles (Cefalópodos, Bivalvos, etc.) del laboratorio de la EPIG.</p>
         
         <a href="https://github.com/anticonaefrain66-art/PaleoApp/releases/download/v1.0/Instalador_Paleo.zip.zip" class="btn-download" download>
             📥 DESCARGAR APLICACIÓN
@@ -43,7 +94,7 @@
     </div>
 
     <div class="footer">
-        <p>Desarrollado para la Escuela Académico Profesional de Ingeniería Geológica (2026)</p>
+        <p>Desarrollado para la Escuela Profesional de Ingeniería Geológica (EPIG)</p>
     </div>
 
 </body>
