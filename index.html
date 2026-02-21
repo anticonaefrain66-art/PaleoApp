@@ -3,19 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laboratorio Paleontología EPIG</title>
+    <title>Próximamente - Laboratorio Paleontología EPIG</title>
     <style>
-        /* AQUI VA TU IMAGEN DE FONDO */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
             color: #333; 
             text-align: center;
-            
-            /* FONDO CONFIGURADO */
             background-image: url('fondo.jpg'); 
-            
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -34,37 +30,46 @@
         .container { 
             max-width: 800px; 
             margin: 40px auto; 
-            padding: 40px; 
+            padding: 50px 40px; 
             background: rgba(255, 255, 255, 0.95); 
             border-radius: 15px; 
             box-shadow: 0 10px 40px rgba(0,0,0,0.5); 
             position: relative; 
         }
 
-        h2 { color: #8B0000; margin-top: 0; }
+        h2 { color: #8B0000; margin-top: 0; font-size: 2.2em; }
         
-        .btn-download { 
-            display: inline-block; 
-            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
-            color: white; 
-            padding: 18px 40px; 
-            text-decoration: none; 
-            font-size: 1.4em; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            margin-top: 30px; 
-            transition: all 0.3s ease; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); 
-            border: 2px solid white;
-        }
-        
-        .btn-download:hover { 
-            transform: scale(1.05); 
-            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6); 
+        .coming-soon {
+            background-color: rgba(255, 248, 225, 0.9);
+            border: 3px dashed #D4AF37;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 30px;
         }
 
-        .instructions { background-color: rgba(255, 248, 225, 0.9); border-left: 5px solid #D4AF37; padding: 20px; margin-top: 40px; text-align: left; border-radius: 4px; }
-        
+        .coming-soon h3 {
+            color: #B8860B;
+            font-size: 2.5em;
+            margin: 0 0 15px 0;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .coming-soon p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .spinner {
+            font-size: 3em;
+            display: inline-block;
+            animation: spin 4s linear infinite;
+            margin-top: 20px;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
         .footer { margin-top: 40px; font-size: 0.9em; color: white; padding-bottom: 20px; text-shadow: 1px 1px 3px black; font-weight: bold; }
     </style>
 </head>
@@ -77,19 +82,12 @@
 
     <div class="container">
         <h2>Catálogo Digital de Fósiles</h2>
-        <p>Herramienta oficial para la identificación, localización y estudio de la colección de fósiles (Cefalópodos, Bivalvos, etc.) del laboratorio de la EPIG.</p>
         
-        <a href="https://github.com/anticonaefrain66-art/PaleoApp/releases/download/v1.0/Instalador_Paleo.zip.zip" class="btn-download" download>
-            📥 DESCARGAR APLICACIÓN
-        </a>
-        
-        <div class="instructions">
-            <strong>📋 Instrucciones de instalación:</strong>
-            <ol>
-                <li>Haz clic en el botón para descargar el archivo.</li>
-                <li>Descomprime el archivo ZIP (Clic derecho > Extraer todo).</li>
-                <li>Entra en la carpeta y abre el archivo <strong>WpfApp3.exe</strong>.</li>
-            </ol>
+        <div class="coming-soon">
+            <h3>¡Próximamente! ⏳</h3>
+            <p>Estamos trabajando duro en el laboratorio codificando las muestras y organizando los amonites para integrarlos a nuestra nueva base de datos.</p>
+            <p>Muy pronto podrás descargar desde aquí la aplicación oficial para explorar toda la colección desde tu computadora.</p>
+            <div class="spinner">⚙️</div>
         </div>
     </div>
 
