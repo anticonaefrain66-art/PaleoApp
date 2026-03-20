@@ -3,241 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaleoApp EPIG - Próximamente</title>
+    <title>PaleoApp EPIG - Laboratorio Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        /* ESTILOS GLOBALES - FONDO OSCURO CON TEXTURA */
-        body { 
-            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
-            margin: 0; 
-            padding: 0; 
-            background-color: #121212; /* Fondo muy oscuro */
-            
-            /* Una textura sutil de fondo para mayor profundidad, opcional */
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            --dark-bg: #0a0a0a;
+            --glass-bg: rgba(20, 20, 20, 0.85);
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--dark-bg);
+            /* FONDO CON TEXTURA DE PIEDRA/PIZARRA */
             background-image: 
-                radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
-                radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 40%);
-            
-            color: #E0E0E0; /* Texto claro */
+                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                url('https://www.transparenttextures.com/patterns/dark-matter.png'); 
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
             min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* EFECTO DE LUZ AMBIENTAL EN LAS ESQUINAS */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .main-card {
+            width: 90%;
+            max-width: 1000px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 0 50px rgba(0,0,0,1), inset 0 0 20px rgba(212, 175, 55, 0.05);
+            position: relative;
             text-align: center;
         }
 
-        /* CABECERA (HEADER) - Logos y Títulos */
-        header { 
-            width: 100%;
-            max-width: 1200px;
-            padding: 40px 20px; 
-            display: grid;
-            grid-template-columns: auto 1fr auto; /* Distribución UNC | Títulos | Escuela */
-            align-items: center;
-            border-bottom: 2px solid rgba(212, 175, 55, 0.3); /* Línea dorada sutil */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            background: rgba(18, 18, 18, 0.8); /* Fondo semi-transparente para la cabecera fixed */
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo { max-height: 90px; width: auto; }
-        .logo-unc { grid-column: 1; }
-        .logo-escuela { grid-column: 3; }
-
-        .title-group {
-            grid-column: 2;
-            padding: 0 30px;
-        }
-
-        h1 { 
-            margin: 0; 
-            font-size: 2.5em; 
-            color: white; 
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-        }
-
-        p.subtitle { 
-            font-size: 1.1em; 
-            margin-top: 5px; 
-            color: #D4AF37; /* Dorado de la EPIG */
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        p.system-subtitle {
-            font-size: 0.9em;
-            color: rgba(224, 224, 224, 0.7);
-            margin-top: 5px;
-            font-style: italic;
-        }
-
-        /* CONTENEDOR PRINCIPAL */
-        .container { 
-            max-width: 900px; 
-            width: 90%;
-            margin: 50px auto; 
-            padding: 50px; 
-            background: #1A1A1A; /* Un gris un poco más claro que el fondo */
-            border-radius: 15px; 
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
-            border: 1px solid rgba(212, 175, 55, 0.2); /* Borde dorado tenue */
-            position: relative; 
-        }
-
-        /* HERO - EL LOGO DE LA PALEOAPP CON EL DISEÑO DE TU APP */
-        .hero-section {
+        /* CABECERA CON LOGOS INTEGRADOS */
+        .header-container {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 20px;
         }
 
-        .main-logo {
-            max-width: 300px; /* Tamaño destacado */
-            height: auto;
-            
-            /* Resplandor dorado tenue alrededor del logo central */
-            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
-            
-            /* Animación suave de aparición */
-            animation: fadeIn 1.5s ease-out;
+        .logo-img {
+            max-height: 70px;
+            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+            transition: transform 0.3s;
         }
+        .logo-img:hover { transform: scale(1.1); }
 
-        /* BOTONES ESTILO TU APP (como Moluscos, Braquiópodos) */
-        .coming-soon-badge {
-            display: inline-block;
-            margin-top: -15px; /* Superposición sutil */
-            padding: 10px 30px;
-            background: rgba(26, 26, 26, 0.7);
-            border: 2px solid #D4AF37; /* Dorado intenso */
-            border-radius: 8px;
-            color: #D4AF37;
-            font-weight: bold;
+        .titles h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8em;
+            margin: 0;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            font-size: 1.2em;
-            letter-spacing: 1.5px;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-            text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
-            margin-bottom: 20px;
-            z-index: 5;
+        }
+
+        .titles p {
+            margin: 5px 0 0;
+            font-weight: 500;
+            letter-spacing: 2px;
+            color: #aaa;
+            font-size: 0.9em;
+        }
+
+        /* ZONA CENTRAL DEL LOGO PRINCIPAL */
+        .hero-visual {
+            position: relative;
+            margin: 40px 0;
+        }
+
+        .main-logo-paleo {
+            width: 250px;
+            filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.4));
+            animation: float 4s ease-in-out infinite;
+            z-index: 2;
             position: relative;
         }
 
-        /* MENSAJE TÉCNICO */
-        h2 { 
-            color: white; 
-            font-size: 1.8em; 
-            font-weight: 600; 
-            letter-spacing: 1px;
-            margin-bottom: 25px;
-        }
-        
-        .message-box {
-            padding: 0 20px;
-        }
-
-        .message-box p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: rgba(224, 224, 224, 0.9);
-            max-width: 650px;
-            margin-left: auto;
-            margin-right: auto;
+        /* Resplandor detrás del logo */
+        .glow-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: 1;
         }
 
-        /* ENGRANAJE ANIMADO ESTILO DORADO */
-        .spinner-container {
-            margin-top: 40px;
-            color: #D4AF37;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            padding-top: 30px;
-        }
-        .spinner {
-            font-size: 3.5em;
+        /* ETIQUETA PRÓXIMAMENTE TIPO PLACA METÁLICA */
+        .badge-coming {
             display: inline-block;
-            animation: spin 3s linear infinite; /* Gira constante */
-            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
+            padding: 8px 25px;
+            background: linear-gradient(to bottom, #222, #111);
+            border: 2px solid var(--gold-primary);
+            border-radius: 5px;
+            color: var(--gold-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2em;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 10px rgba(212,175,55,0.2);
+            margin-bottom: 20px;
+            text-shadow: 0 0 5px rgba(212,175,55,0.5);
         }
 
-        /* FOOTER PROFESIONAL */
-        .footer { 
-            margin-top: auto; 
+        .content-text h2 {
+            font-size: 2em;
+            color: #fff;
+            margin-bottom: 15px;
+            font-weight: 300;
+        }
+
+        .content-text p {
+            font-size: 1.2em;
+            color: #ccc;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            line-height: 1.5;
+        }
+
+        /* BARRA DE PROGRESO TÉCNICA */
+        .progress-container {
             width: 100%;
-            font-size: 0.9em; 
-            color: rgba(224, 224, 224, 0.6); 
-            padding: 20px 0;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            background: #161616;
-            font-weight: 500;
+            max-width: 500px;
+            margin: 20px auto;
+            text-align: left;
+        }
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8em;
+            color: var(--gold-primary);
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        .progress-bar {
+            height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%;
+            width: 75%; /* Ajusta el progreso aquí */
+            background: var(--gold-gradient);
+            box-shadow: 0 0 10px var(--gold-primary);
+            animation: pulse-progress 2s infinite;
+        }
+
+        /* FOOTER */
+        footer {
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #666;
+            letter-spacing: 1px;
         }
 
         /* ANIMACIONES */
-        @keyframes spin { 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(-10deg); } 100% { opacity: 1; transform: translateY(0); } }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        @keyframes pulse-progress {
+            0% { opacity: 0.6; }
+            50% { opacity: 1; }
+            100% { opacity: 0.6; }
+        }
 
-        /* RESPONSIVO - Para Celulares */
+        /* RESPONSIVO */
         @media (max-width: 768px) {
-            header {
-                grid-template-columns: 1fr 1fr;
-                gap: 15px;
-                padding: 20px;
-            }
-            .logo-unc { grid-column: 1; justify-self: start; }
-            .logo-escuela { grid-column: 2; justify-self: end; }
-            .title-group { grid-column: 1 / span 2; padding: 15px 0 0; }
-            h1 { font-size: 1.8em; }
-            p.subtitle { font-size: 1em; }
-            .container { padding: 30px 20px; margin: 30px auto; }
-            .main-logo { max-width: 200px; }
-            h2 { font-size: 1.5em; }
-            .message-box p { font-size: 1.1em; }
+            .header-container { flex-direction: column; gap: 15px; }
+            .titles h1 { font-size: 1.3em; }
+            .main-logo-paleo { width: 180px; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="ESCUDO UNC.png" alt="Escudo Universidad Nacional de Cajamarca" class="logo logo-unc">
-        
-        <div class="title-group">
-            <h1>Laboratorio de Paleontología</h1>
-            <p class="subtitle">Escuela Profesional de Ingeniería Geológica (EPIG)</p>
-            <p class="system-subtitle">Sistema de Catalogación Virtual (PaleoApp)</p>
+    <div class="main-card">
+        <div class="header-container">
+            <img src="ESCUDO UNC.png" alt="UNC" class="logo-img">
+            <div class="titles">
+                <h1>Laboratorio de Paleontología</h1>
+                <p>Ingeniería Geológica - EPIG</p>
+            </div>
+            <img src="ESCUDO ESCUELA.png" alt="EPIG" class="logo-img">
         </div>
 
-        <img src="ESCUDO ESCUELA.png" alt="Escudo EPIG" class="logo logo-escuela">
-    </header>
-
-    <div class="container">
-        
-        <div class="hero-section">
-            <img src="LOUGO.png" alt="Logo PaleoApp EPIG" class="main-logo">
+        <div class="hero-visual">
+            <div class="glow-bg"></div>
+            <img src="LOUGO.png" alt="PaleoApp Logo" class="main-logo-paleo">
         </div>
 
-        <div class="coming-soon-badge">
-            ¡Próximamente!
-        </div>
-        
-        <h2>Plataforma en Construcción</h2>
-        
-        <div class="message-box">
-            <p>Estamos trabajando duro en el laboratorio codificando las muestras técnicas de toda nuestra colección.</p>
-            <p>Muy pronto podrás descargar la aplicación final desde esta misma página para acceder a la base de datos completa de fósiles.</p>
+        <div class="badge-coming">MODO DESARROLLO</div>
+
+        <div class="content-text">
+            <h2>Sistema de Catalogación Virtual</h2>
+            <p>Estamos digitalizando la colección paleontológica de la EPIG para ofrecerte una experiencia de estudio de alta precisión desde cualquier dispositivo.</p>
         </div>
 
-        <div class="spinner-container">
-            <div class="spinner">⚙️</div>
-            <p style="font-size: 0.9em; margin-top: 10px; color: rgba(224, 224, 224, 0.7);">Sincronizando muestras...</p>
+        <div class="progress-container">
+            <div class="progress-label">
+                <span>Estado del proyecto: Catalogación de muestras</span>
+                <span>75%</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
         </div>
-    </div>
 
-    <div class="footer">
-        <p>&copy; 2024 - Escuela Profesional de Ingeniería Geológica (EPIG) - Universidad Nacional de Cajamarca</p>
+        <footer>
+            UNIVERSIDAD NACIONAL DE CAJAMARCA &copy; 2026 | Desarrollado para la EPIG
+        </footer>
     </div>
 
 </body>
