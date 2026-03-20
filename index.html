@@ -3,128 +3,241 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Próximamente - Laboratorio Paleontología EPIG</title>
+    <title>PaleoApp EPIG - Próximamente</title>
     <style>
+        /* ESTILOS GLOBALES - FONDO OSCURO CON TEXTURA */
         body { 
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
-            color: #333; 
+            background-color: #121212; /* Fondo muy oscuro */
+            
+            /* Una textura sutil de fondo para mayor profundidad, opcional */
+            background-image: 
+                radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(139, 0, 0, 0.1) 0%, transparent 40%);
+            
+            color: #E0E0E0; /* Texto claro */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
             text-align: center;
-            /* Asegúrate que el fondo siga estando en tu repositorio */
-            background-image: url('fondo.jpg'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
         }
 
+        /* CABECERA (HEADER) - Logos y Títulos */
         header { 
-            background: rgba(139, 0, 0, 0.9); 
-            color: white; 
-            padding: 40px 20px; /* Un poco más bajo para dar espacio a la imagen */
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3); 
-        }
-
-        h1 { margin: 0; font-size: 2.5em; letter-spacing: 1px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        p.subtitle { font-size: 1.2em; margin-top: 10px; opacity: 0.9; font-weight: 500; }
-
-        .container { 
-            max-width: 800px; 
-            margin: 30px auto; 
-            padding: 40px; 
-            background: rgba(255, 255, 255, 0.97); /* Un poco más opaco */
-            border-radius: 15px; 
-            box-shadow: 0 15px 50px rgba(0,0,0,0.6); 
-            position: relative; 
-        }
-        
-        /* ESTILO SUPER DESTACADO PARA TU IMAGEN LOGO-PROX */
-        .hero-image-container {
-            margin: -80px auto 30px; /* Truco para que suba y se salga un poco del contenedor */
+            width: 100%;
+            max-width: 1200px;
+            padding: 40px 20px; 
+            display: grid;
+            grid-template-columns: auto 1fr auto; /* Distribución UNC | Títulos | Escuela */
+            align-items: center;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.3); /* Línea dorada sutil */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            background: rgba(18, 18, 18, 0.8); /* Fondo semi-transparente para la cabecera fixed */
             position: relative;
             z-index: 10;
         }
 
-        .hero-image {
-            max-width: 90%; /* Tamaño ideal */
+        .logo { max-height: 90px; width: auto; }
+        .logo-unc { grid-column: 1; }
+        .logo-escuela { grid-column: 3; }
+
+        .title-group {
+            grid-column: 2;
+            padding: 0 30px;
+        }
+
+        h1 { 
+            margin: 0; 
+            font-size: 2.5em; 
+            color: white; 
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
+
+        p.subtitle { 
+            font-size: 1.1em; 
+            margin-top: 5px; 
+            color: #D4AF37; /* Dorado de la EPIG */
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p.system-subtitle {
+            font-size: 0.9em;
+            color: rgba(224, 224, 224, 0.7);
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+        .container { 
+            max-width: 900px; 
+            width: 90%;
+            margin: 50px auto; 
+            padding: 50px; 
+            background: #1A1A1A; /* Un gris un poco más claro que el fondo */
+            border-radius: 15px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8); 
+            border: 1px solid rgba(212, 175, 55, 0.2); /* Borde dorado tenue */
+            position: relative; 
+        }
+
+        /* HERO - EL LOGO DE LA PALEOAPP CON EL DISEÑO DE TU APP */
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .main-logo {
+            max-width: 300px; /* Tamaño destacado */
             height: auto;
-            border-radius: 15px; /* Bordes redondeados */
             
-            /* Marco dorado grueso estilo vintage */
-            border: 6px solid #D4AF37; 
+            /* Resplandor dorado tenue alrededor del logo central */
+            filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4));
             
-            /* Sombra profunda y un resplandor dorado */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 20px rgba(212, 175, 55, 0.3);
-            
-            /* Animación de PULSO (latido suave) */
-            animation: pulse 3s infinite ease-in-out;
+            /* Animación suave de aparición */
+            animation: fadeIn 1.5s ease-out;
         }
 
-        /* La animación del latido */
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); } /* Se agranda un poquito */
-            100% { transform: scale(1); }
+        /* BOTONES ESTILO TU APP (como Moluscos, Braquiópodos) */
+        .coming-soon-badge {
+            display: inline-block;
+            margin-top: -15px; /* Superposición sutil */
+            padding: 10px 30px;
+            background: rgba(26, 26, 26, 0.7);
+            border: 2px solid #D4AF37; /* Dorado intenso */
+            border-radius: 8px;
+            color: #D4AF37;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 1.2em;
+            letter-spacing: 1.5px;
+            box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+            text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+            margin-bottom: 20px;
+            z-index: 5;
+            position: relative;
         }
 
-        h2 { color: #8B0000; margin-top: 10px; font-size: 2.2em; text-transform: uppercase; letter-spacing: 2px; }
+        /* MENSAJE TÉCNICO */
+        h2 { 
+            color: white; 
+            font-size: 1.8em; 
+            font-weight: 600; 
+            letter-spacing: 1px;
+            margin-bottom: 25px;
+        }
         
         .message-box {
-            padding: 20px;
+            padding: 0 20px;
         }
 
         .message-box p {
-            font-size: 1.3em;
+            font-size: 1.2em;
             line-height: 1.6;
             margin-bottom: 20px;
-            color: #555;
+            color: rgba(224, 224, 224, 0.9);
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        /* El engranaje pequeño que sí gira rápido */
+        /* ENGRANAJE ANIMADO ESTILO DORADO */
         .spinner-container {
-            margin-top: 30px;
+            margin-top: 40px;
             color: #D4AF37;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding-top: 30px;
         }
         .spinner {
-            font-size: 4em;
+            font-size: 3.5em;
             display: inline-block;
-            animation: spin 2s linear infinite; /* Gira rápido */
-            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+            animation: spin 3s linear infinite; /* Gira constante */
+            filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.4));
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        /* FOOTER PROFESIONAL */
+        .footer { 
+            margin-top: auto; 
+            width: 100%;
+            font-size: 0.9em; 
+            color: rgba(224, 224, 224, 0.6); 
+            padding: 20px 0;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            background: #161616;
+            font-weight: 500;
+        }
 
-        .footer { margin-top: 40px; font-size: 0.9em; color: white; padding-bottom: 20px; text-shadow: 1px 1px 3px black; font-weight: bold; }
+        /* ANIMACIONES */
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes fadeIn { 0% { opacity: 0; transform: translateY(-10deg); } 100% { opacity: 1; transform: translateY(0); } }
+
+        /* RESPONSIVO - Para Celulares */
+        @media (max-width: 768px) {
+            header {
+                grid-template-columns: 1fr 1fr;
+                gap: 15px;
+                padding: 20px;
+            }
+            .logo-unc { grid-column: 1; justify-self: start; }
+            .logo-escuela { grid-column: 2; justify-self: end; }
+            .title-group { grid-column: 1 / span 2; padding: 15px 0 0; }
+            h1 { font-size: 1.8em; }
+            p.subtitle { font-size: 1em; }
+            .container { padding: 30px 20px; margin: 30px auto; }
+            .main-logo { max-width: 200px; }
+            h2 { font-size: 1.5em; }
+            .message-box p { font-size: 1.1em; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>Laboratorio Virtual de Paleontología</h1>
-        <p class="subtitle">EPIG - Universidad Nacional de Cajamarca</p>
+        <img src="ESCUDO UNC.png" alt="Escudo Universidad Nacional de Cajamarca" class="logo logo-unc">
+        
+        <div class="title-group">
+            <h1>Laboratorio de Paleontología</h1>
+            <p class="subtitle">Escuela Profesional de Ingeniería Geológica (EPIG)</p>
+            <p class="system-subtitle">Sistema de Catalogación Virtual (PaleoApp)</p>
+        </div>
+
+        <img src="ESCUDO ESCUELA.png" alt="Escudo EPIG" class="logo logo-escuela">
     </header>
 
     <div class="container">
         
-        <div class="hero-image-container">
-            <img src="LOGO-PROX.png" alt="Afiche Próximamente EPIG" class="hero-image">
+        <div class="hero-section">
+            <img src="LOUGO.png" alt="Logo PaleoApp EPIG" class="main-logo">
         </div>
 
-        <h2>¡Próximamente!</h2>
+        <div class="coming-soon-badge">
+            ¡Próximamente!
+        </div>
+        
+        <h2>Plataforma en Construcción</h2>
         
         <div class="message-box">
-            <p>Estamos trabajando duro en el laboratorio codificando las muestras y organizando <strong>toda la colección de fósiles</strong> para integrarla a nuestra nueva base de datos.</p>
-            <p>Muy pronto escanearás este mismo código para acceder a la herramienta final.</p>
+            <p>Estamos trabajando duro en el laboratorio codificando las muestras técnicas de toda nuestra colección.</p>
+            <p>Muy pronto podrás descargar la aplicación final desde esta misma página para acceder a la base de datos completa de fósiles.</p>
         </div>
 
         <div class="spinner-container">
             <div class="spinner">⚙️</div>
-            <p style="font-size: 0.9em; margin-top: 10px;">Procesando datos...</p>
+            <p style="font-size: 0.9em; margin-top: 10px; color: rgba(224, 224, 224, 0.7);">Sincronizando muestras...</p>
         </div>
     </div>
 
     <div class="footer">
-        <p>Desarrollado para la Escuela Profesional de Ingeniería Geológica (EPIG)</p>
+        <p>&copy; 2024 - Escuela Profesional de Ingeniería Geológica (EPIG) - Universidad Nacional de Cajamarca</p>
     </div>
 
 </body>
