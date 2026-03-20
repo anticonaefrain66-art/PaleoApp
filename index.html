@@ -6,18 +6,24 @@
     <title>PaleoApp EPIG - Laboratorio Virtual</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- VARIABLES GLOBALES Y RESET --- */
         :root {
-            --gold-primary: #D4AF37;
+            --gold-primary: #D4AF37; /* Dorado técnico de la EPIG */
             --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            --dark-bg: #0a0a0a;
-            --glass-bg: rgba(20, 20, 20, 0.85);
+            --dark-bg: #0a0a0a; /* Fondo ultra oscuro */
+            --glass-bg: rgba(20, 20, 20, 0.85); /* Efecto cristal para la card */
+            --transition-speed: 0.4s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            margin: 0;
-            padding: 0;
             background-color: var(--dark-bg);
-            /* FONDO CON TEXTURA DE PIEDRA/PIZARRA */
+            /* TEXTURA DE FONDO SUTIL PARA MAYOR PROFUNDIDAD */
             background-image: 
                 linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
                 url('https://www.transparenttextures.com/patterns/dark-matter.png'); 
@@ -28,179 +34,219 @@
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
+            padding: 20px;
         }
 
-        /* EFECTO DE LUZ AMBIENTAL EN LAS ESQUINAS */
-        body::before {
-            content: "";
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 40%;
-            height: 40%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            z-index: -1;
-        }
-
+        /* --- CONTENEDOR PRINCIPAL (CARD) --- */
         .main-card {
-            width: 90%;
+            width: 100%;
             max-width: 1000px;
             background: var(--glass-bg);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            backdrop-filter: blur(10px); /* Desenfoque del fondo (efecto cristal) */
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Borde dorado tenue */
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 0 50px rgba(0,0,0,1), inset 0 0 20px rgba(212, 175, 55, 0.05);
+            box-shadow: 0 0 70px rgba(0,0,0,1), inset 0 0 20px rgba(212, 175, 55, 0.05);
             position: relative;
             text-align: center;
+            
+            /* ANIMACIÓN DE APARICIÓN SUAVE AL CARGAR LA PÁGINA */
+            opacity: 0;
+            animation: fadeInCard 1.2s ease-out forwards;
         }
 
-        /* CABECERA CON LOGOS INTEGRADOS */
+        /* --- CABECERA: LOGOS Y TÍTULOS --- */
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 20px;
+            padding-bottom: 25px;
         }
 
         .logo-img {
-            max-height: 70px;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
-            transition: transform 0.3s;
+            max-height: 80px;
+            width: auto;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
+            transition: transform 0.3s ease;
         }
-        .logo-img:hover { transform: scale(1.1); }
+        
+        .logo-img:hover {
+            transform: scale(1.08) rotate(-2deg); /* Interactividad fina en logos */
+        }
 
         .titles h1 {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.8em;
+            font-size: 2.1em;
             margin: 0;
+            /* GRADIENTE DORADO METÁLICO EN EL TEXTO */
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             letter-spacing: 3px;
             text-transform: uppercase;
+            font-weight: 700;
         }
 
         .titles p {
-            margin: 5px 0 0;
+            margin: 8px 0 0;
             font-weight: 500;
             letter-spacing: 2px;
-            color: #aaa;
-            font-size: 0.9em;
+            color: rgba(224, 224, 224, 0.7);
+            font-size: 1em;
+            text-transform: uppercase;
         }
 
-        /* ZONA CENTRAL DEL LOGO PRINCIPAL */
+        /* --- ZONA CENTRAL: EL LOGO PRINCIPAL --- */
         .hero-visual {
             position: relative;
-            margin: 40px 0;
+            margin: 50px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .main-logo-paleo {
-            width: 250px;
-            filter: drop-shadow(0 0 20px rgba(139, 0, 0, 0.4));
-            animation: float 4s ease-in-out infinite;
+            width: 280px;
+            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.4)); /* Resplandor rojo/marrón */
+            animation: floatLogo 5s ease-in-out infinite; /* El logo flota */
             z-index: 2;
             position: relative;
         }
 
-        /* Resplandor detrás del logo */
+        /* Resplandor dorado tenue detrás del logo central */
         .glow-bg {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            width: 350px;
+            height: 350px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
             border-radius: 50%;
             z-index: 1;
         }
 
-        /* ETIQUETA PRÓXIMAMENTE TIPO PLACA METÁLICA */
+        /* --- ETIQUETA 'MODO DESARROLLO' (INTERACTIVA) --- */
         .badge-coming {
             display: inline-block;
-            padding: 8px 25px;
-            background: linear-gradient(to bottom, #222, #111);
+            padding: 10px 30px;
+            background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
             border: 2px solid var(--gold-primary);
-            border-radius: 5px;
+            border-radius: 6px;
             color: var(--gold-primary);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2em;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5), 0 0 10px rgba(212,175,55,0.2);
-            margin-bottom: 20px;
-            text-shadow: 0 0 5px rgba(212,175,55,0.5);
+            font-size: 1.3em;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            margin-bottom: 25px;
+            text-shadow: 0 0 10px rgba(212,175,55,0.7);
+            cursor: pointer;
+            
+            /* Preparación para la animación de hover */
+            transition: all 0.3s ease;
+        }
+
+        /* EFECTO HOVER DEL BOTÓN (BRILLO NEÓN DORADO) */
+        .badge-coming:hover {
+            transform: scale(1.05); /* Se agranda un poco */
+            background: linear-gradient(to bottom, #333, #111);
+            box-shadow: 0 0 35px rgba(212, 175, 55, 0.8), inset 0 0 10px rgba(212, 175, 55, 0.3);
+            border-color: #FCF6BA; /* Dorado más claro en el borde */
+        }
+
+        /* --- CONTENIDO DE TEXTO --- */
+        .content-text {
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .content-text h2 {
-            font-size: 2em;
+            font-size: 2.2em;
             color: #fff;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             font-weight: 300;
+            letter-spacing: 1px;
         }
 
         .content-text p {
-            font-size: 1.2em;
-            color: #ccc;
-            max-width: 700px;
-            margin: 0 auto 30px;
-            line-height: 1.5;
+            font-size: 1.3em;
+            color: rgba(224, 224, 224, 0.85);
+            margin: 0 auto 35px;
+            line-height: 1.6;
+            font-weight: 300;
         }
 
-        /* BARRA DE PROGRESO TÉCNICA */
+        /* --- BARRA DE PROGRESO TÉCNICA (PULSANTE) --- */
         .progress-container {
             width: 100%;
-            max-width: 500px;
-            margin: 20px auto;
+            max-width: 550px;
+            margin: 30px auto;
             text-align: left;
         }
         .progress-label {
             display: flex;
             justify-content: space-between;
-            font-size: 0.8em;
+            font-size: 0.9em;
             color: var(--gold-primary);
-            margin-bottom: 5px;
+            margin-bottom: 8px;
             text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 1px;
         }
         .progress-bar {
-            height: 4px;
+            height: 5px;
             background: rgba(255,255,255,0.1);
-            border-radius: 2px;
+            border-radius: 3px;
             overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
         }
         .progress-fill {
             height: 100%;
-            width: 75%; /* Ajusta el progreso aquí */
+            width: 75%; /* Ajusta el progreso real aquí */
             background: var(--gold-gradient);
-            box-shadow: 0 0 10px var(--gold-primary);
-            animation: pulse-progress 2s infinite;
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
+            animation: pulseProgressBar 2.5s infinite ease-in-out; /* Pulsación sutil */
         }
 
-        /* FOOTER */
+        /* --- FOOTER PROFESIONAL --- */
         footer {
-            margin-top: 30px;
-            font-size: 0.8em;
-            color: #666;
+            margin-top: 50px;
+            font-size: 0.85em;
+            color: rgba(102, 102, 102, 0.8);
             letter-spacing: 1px;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding-top: 25px;
         }
 
-        /* ANIMACIONES */
-        @keyframes float {
+        /* --- ANIMACIONES (KEYFRAMES) --- */
+        @keyframes fadeInCard {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-        @keyframes pulse-progress {
-            0% { opacity: 0.6; }
-            50% { opacity: 1; }
-            100% { opacity: 0.6; }
+            50% { transform: translateY(-18px); } /* Flotación suave */
         }
 
-        /* RESPONSIVO */
+        @keyframes pulseProgressBar {
+            0% { opacity: 0.7; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+            50% { opacity: 1; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
+            100% { opacity: 0.7; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
+        }
+
+        /* --- RESPONSIVO: AJUSTES PARA CELULARES --- */
         @media (max-width: 768px) {
-            .header-container { flex-direction: column; gap: 15px; }
-            .titles h1 { font-size: 1.3em; }
-            .main-logo-paleo { width: 180px; }
+            .main-card { padding: 25px; border-radius: 15px; }
+            .header-container { flex-direction: column; gap: 15px; text-align: center; }
+            .logo-img { max-height: 60px; }
+            .titles h1 { font-size: 1.5em; letter-spacing: 1.5px; }
+            .titles p { font-size: 0.9em; }
+            .main-logo-paleo { width: 200px; }
+            .content-text h2 { font-size: 1.7em; }
+            .content-text p { font-size: 1.1em; }
+            .badge-coming { font-size: 1.1em; padding: 8px 20px; }
         }
     </style>
 </head>
@@ -218,19 +264,19 @@
 
         <div class="hero-visual">
             <div class="glow-bg"></div>
-            <img src="LOUGO.png" alt="PaleoApp Logo" class="main-logo-paleo">
+            <img src="LOUGO.png" alt="PaleoApp Logo Principal" class="main-logo-paleo">
         </div>
 
         <div class="badge-coming">MODO DESARROLLO</div>
 
         <div class="content-text">
             <h2>Sistema de Catalogación Virtual</h2>
-            <p>Estamos digitalizando la colección paleontológica de la EPIG para ofrecerte una experiencia de estudio de alta precisión desde cualquier dispositivo.</p>
+            <p>Estamos digitalizando la colección paleontológica técnica de la EPIG para ofrecerte una herramienta de estudio de alta precisión, accesible desde cualquier dispositivo.</p>
         </div>
 
         <div class="progress-container">
             <div class="progress-label">
-                <span>Estado del proyecto: Catalogación de muestras</span>
+                <span>Estado actual: Catalogación de muestras</span>
                 <span>75%</span>
             </div>
             <div class="progress-bar">
@@ -239,7 +285,7 @@
         </div>
 
         <footer>
-            UNIVERSIDAD NACIONAL DE CAJAMARCA &copy; 2026 | Desarrollado para la EPIG
+            UNIVERSIDAD NACIONAL DE CAJAMARCA &copy; 2026 | Desarrollado por la EPIG
         </footer>
     </div>
 
