@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Catalogación Virtual - Paleontología</title>
+    <title>Sistema de Catalogación Virtual - Paleontología EPIG</title>
     <style>
-        /* Estilos generales "Estilo Velada" */
+        /* Estilos generales - Estilo Velada / Gamer Oscuro */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
         body {
             background: #0a0a0a;
-            background-image: radial-gradient(circle at 50% 0%, #1f1a10 0%, #0a0a0a 70%);
+            background-image: radial-gradient(circle at 50% 0%, #1f1a10 0%, #0a0a0a 80%);
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -18,11 +18,11 @@
             overflow-x: hidden;
         }
 
-        /* --- NUEVO: PORTADA PRINCIPAL (HERO) --- */
+        /* --- PORTADA PRINCIPAL (HERO BANNER) --- */
         .hero-section {
             position: relative;
             width: 100%;
-            height: 70vh; /* Ocupa el 70% de la pantalla inicial */
+            height: 65vh;
             background-image: url('LABORATORIO FISICO.png');
             background-size: cover;
             background-position: center;
@@ -33,14 +33,13 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        /* Capa oscura sobre la imagen para que el texto resalte */
         .hero-overlay {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(10,10,10,1) 100%);
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(10,10,10,1) 100%);
         }
 
         .hero-content {
@@ -56,152 +55,261 @@
             letter-spacing: 3px;
             margin: 0;
             color: #fff;
-            text-shadow: 0 0 20px rgba(255, 187, 0, 0.8), 0 0 40px rgba(255, 187, 0, 0.4);
+            text-shadow: 0 0 20px rgba(255, 187, 0, 0.7), 0 0 40px rgba(255, 187, 0, 0.4);
         }
 
         .hero-content p {
             font-size: 1.5rem;
             color: #ffbb00;
             margin-top: 15px;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             text-transform: uppercase;
             font-weight: 700;
         }
 
         /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 1200px;
-            margin: -50px auto 0; /* Sube un poco sobre la imagen principal */
+            max-width: 1400px; /* Contenedor más ancho para que quepan las imágenes grandes */
+            margin: -30px auto 0;
             padding: 40px 20px;
             position: relative;
             z-index: 2;
         }
 
-        /* Títulos de sección */
+        /* Títulos de las fases */
         h2 {
             text-align: center;
             font-size: 2.5rem;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 2px;
-            margin-top: 40px;
-            margin-bottom: 40px;
+            margin-top: 60px;
+            margin-bottom: 50px;
             color: #fff;
-            text-shadow: 0 0 10px rgba(255, 187, 0, 0.5), 0 0 20px rgba(255, 187, 0, 0.3);
-            border-bottom: 2px solid rgba(255, 187, 0, 0.3);
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.4);
+            border-bottom: 2px solid rgba(255, 187, 0, 0.2);
             padding-bottom: 15px;
         }
 
-        /* Contenedores de grillas para imágenes */
-        .grid-gallery {
+        /* Grillas de imágenes (TAMAÑO GRANDE) */
+        .grid-gallery-fase1 {
             display: grid;
-            gap: 30px;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            margin-bottom: 80px;
+            gap: 40px;
+            /* Columnas de mínimo 450px para que se vean gigantes */
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            margin-bottom: 70px;
         }
 
-        /* Estilo de las tarjetas de imagen */
+        .grid-gallery-fase2 {
+            display: grid;
+            gap: 40px;
+            /* Columnas de mínimo 400px */
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            margin-bottom: 70px;
+        }
+
+        /* Tarjetas con Brillo Neon en Hover */
         .card {
             position: relative;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
             background: #111;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-            transition: all 0.4s ease;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
+            border: 1px solid #222;
         }
 
         .card img {
             width: 100%;
-            height: 250px;
+            height: 380px; /* ALTURA AUMENTADA PARA HACERLAS MÁS GRANDES */
             object-fit: cover;
             display: block;
-            filter: grayscale(30%) brightness(0.7);
+            filter: grayscale(25%) brightness(0.75);
             transition: all 0.5s ease;
         }
 
         .card-title {
             position: absolute;
-            bottom: -50px;
+            bottom: -70px;
             left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 0;
+            background: rgba(5, 5, 5, 0.95);
+            padding: 20px 0;
             text-align: center;
-            font-weight: 700;
-            font-size: 1rem;
+            font-weight: 900;
+            font-size: 1.2rem; /* TEXTO MÁS GRANDE */
             color: #ffbb00;
             transition: all 0.4s ease;
             text-transform: uppercase;
-            border-top: 1px solid rgba(255, 187, 0, 0.3);
+            border-top: 2px solid rgba(255, 187, 0, 0.3);
         }
 
-        /* Efectos WOW al pasar el mouse (Hover) */
+        /* Efectos WOW al pasar el mouse */
         .card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 0 30px rgba(255, 187, 0, 0.6), 0 0 60px rgba(255, 187, 0, 0.2);
+            transform: translateY(-10px);
+            box-shadow: 0 0 35px rgba(255, 187, 0, 0.5), 0 0 70px rgba(255, 187, 0, 0.2);
             border: 1px solid rgba(255, 187, 0, 0.8);
             z-index: 10;
         }
 
         .card:hover img {
             filter: grayscale(0%) brightness(1.1);
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
 
         .card:hover .card-title {
             bottom: 0;
         }
 
-        /* Sección de Autores */
+        /* --- PANEL DE DESCARGA PREMIUM CON LOGO --- */
+        .download-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 50px;
+            background: linear-gradient(135deg, #121212 0%, #1c1710 100%);
+            border: 2px solid rgba(255, 187, 0, 0.4);
+            border-radius: 25px;
+            padding: 50px;
+            margin: 80px 0;
+            box-shadow: 0 0 35px rgba(255, 187, 0, 0.2), inset 0 0 20px rgba(0,0,0,0.6);
+            position: relative;
+        }
+
+        .download-logo-area {
+            flex: 1;
+            min-width: 250px;
+            text-align: center;
+        }
+
+        .download-logo-area img {
+            max-width: 220px; /* LOGO MÁS GRANDE */
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(255, 187, 0, 0.6));
+            transition: transform 0.3s ease;
+        }
+
+        .download-logo-area img:hover {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .download-action-area {
+            flex: 2;
+            min-width: 350px;
+            text-align: left;
+        }
+
+        @media (max-width: 768px) {
+            .download-action-area { text-align: center; }
+        }
+
+        .download-action-area h3 {
+            font-size: 2.3rem;
+            margin: 0 0 15px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #ffffff, #ffbb00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .download-action-area p {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin: 0 0 30px 0;
+            line-height: 1.6;
+        }
+
+        .download-action-area p span {
+            color: #ffbb00;
+            font-weight: bold;
+        }
+
+        /* Botón de descarga con efecto latido */
+        .btn-descarga {
+            display: inline-block;
+            padding: 20px 45px;
+            font-size: 1.4rem;
+            font-weight: 900;
+            color: #0a0a0a;
+            background: linear-gradient(45deg, #ffbb00, #ff8c00);
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 50px;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px rgba(255, 187, 0, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            animation: latido 2.5s infinite;
+        }
+
+        .btn-descarga:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 0 35px rgba(255, 187, 0, 0.7);
+            background: #0a0a0a;
+            color: #ffbb00;
+            border: 2px solid #ffbb00;
+            animation-play-state: paused;
+        }
+
+        @keyframes latido {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 35px rgba(255, 187, 0, 0.6); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); }
+        }
+
+        /* --- SECCIÓN DE AUTORES / EQUIPO --- */
         .authors-section {
             display: flex;
             flex-wrap: wrap;
-            gap: 40px;
+            gap: 50px;
             align-items: center;
-            background: rgba(15, 15, 15, 0.9);
-            padding: 40px;
+            background: rgba(15, 15, 15, 0.95);
+            padding: 50px;
             border-radius: 20px;
             border: 1px solid #333;
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.5);
-            margin-bottom: 50px;
+            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.6);
+            margin-bottom: 80px;
         }
 
         .team-photo {
-            flex: 1;
-            min-width: 300px;
+            flex: 1.2; /* Dándole más espacio a la foto del equipo */
+            min-width: 400px;
         }
 
         .team-photo img {
             width: 100%;
             border-radius: 15px;
-            box-shadow: 0 0 25px rgba(255, 187, 0, 0.3);
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.25);
             border: 2px solid rgba(255, 187, 0, 0.4);
         }
 
         .team-info {
             flex: 1;
-            min-width: 300px;
+            min-width: 350px;
         }
 
         .team-info h3 {
             color: #ffbb00;
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin-top: 0;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255, 187, 0, 0.3);
+            letter-spacing: 1px;
         }
 
         .team-list {
             list-style: none;
             padding: 0;
-            font-size: 1.1rem;
-            line-height: 2;
+            font-size: 1.2rem;
+            line-height: 2.2;
         }
 
         .team-list li {
             position: relative;
-            padding-left: 30px;
+            padding-left: 35px;
             transition: color 0.3s ease;
         }
 
@@ -214,24 +322,29 @@
             position: absolute;
             left: 0;
             color: #ffbb00;
-            font-size: 0.9rem;
         }
 
         .advisor {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 35px;
+            padding-top: 25px;
             border-top: 1px dashed rgba(255, 187, 0, 0.3);
             font-size: 1.2rem;
         }
 
-        .advisor span {
-            color: #ffbb00;
-            font-weight: 900;
-            font-size: 1.3rem;
-            display: block;
-            margin-top: 5px;
+        .advisor strong {
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 1rem;
+            letter-spacing: 1px;
         }
 
+        .advisor span {
+            color: #ffbb00;
+            font-weight: 700;
+            font-size: 1.3rem;
+            display: block;
+            margin-top: 8px;
+        }
     </style>
 </head>
 <body>
@@ -247,45 +360,58 @@
 <div class="container">
 
     <h2>Fase 1: Proceso Físico</h2>
-    <div class="grid-gallery">
+    <div class="grid-gallery-fase1">
         <div class="card">
-            <img src="FÍSICO.jpeg" alt="Físico">
+            <img src="FÍSICO.jpeg" alt="Trabajo Físico">
             <div class="card-title">Trabajo Físico</div>
         </div>
         <div class="card">
-            <img src="ORDENAMIENTO FÍSICO.jpeg" alt="Ordenamiento Físico">
+            <img src="ORDENAMIENTO FÍSICO.jpeg" alt="Ordenamiento">
             <div class="card-title">Ordenamiento</div>
         </div>
         <div class="card">
-            <img src="ESTANTES FISICOS.jpeg" alt="Estantes Físicos">
+            <img src="ESTANTES FISICOS.jpeg" alt="Organización">
             <div class="card-title">Organización en Estantes</div>
         </div>
         <div class="card">
-            <img src="FOTOGRAFIADO DE FOSILES.png" alt="Fotografiado de Fósiles">
+            <img src="FOTOGRAFIADO DE FOSILES.png" alt="Fotografiado">
             <div class="card-title">Fotografiado Físico</div>
         </div>
     </div>
 
     <h2>Fase 2: Proceso Virtual</h2>
-    <div class="grid-gallery" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+    <div class="grid-gallery-fase2">
         <div class="card">
             <img src="MACROFOTOGRAFÍA.jpeg" alt="Macrofotografía">
             <div class="card-title">Macrofotografía</div>
         </div>
         <div class="card">
-            <img src="GENERACION DE MODELO 3D.jpeg" alt="Generación 3D">
+            <img src="GENERACION DE MODELO 3D.jpeg" alt="Modelado 3D">
             <div class="card-title">Generación Modelo 3D</div>
         </div>
         <div class="card">
-            <img src="CREACION DE LA APLICACIÓN.png" alt="Creación de App">
+            <img src="CREACION DE LA APLICACIÓN.png" alt="Desarrollo App">
             <div class="card-title">Desarrollo de Aplicación</div>
+        </div>
+    </div>
+
+    <div class="download-panel">
+        <div class="download-logo-area">
+            <img src="LOGO.png" alt="Logo EPIG Paleontología">
+        </div>
+        <div class="download-action-area">
+            <h3>Catálogo Virtual Interactivo</h3>
+            <p>Explora la colección fósil en 3D de Cajamarca de manera digital. <br>Compatible con <span>Windows (PC) | Motor Gráfico Unity</span></p>
+            <a href="TU_LINK_DE_DESCARGA_AQUI" class="btn-descarga" target="_blank">
+                📥 Descargar Aplicación
+            </a>
         </div>
     </div>
 
     <h2>Nuestro Equipo</h2>
     <div class="authors-section">
         <div class="team-photo">
-            <img src="INTEGRANTES.jpeg" alt="Integrantes del proyecto">
+            <img src="INTEGRANTES.jpeg" alt="Integrantes EPIG">
         </div>
         <div class="team-info">
             <h3>Autores del Proyecto</h3>
@@ -298,7 +424,7 @@
             </ul>
             
             <div class="advisor">
-                <strong>Asesor:</strong> 
+                <strong>Asesor del Proyecto:</strong>
                 <span>Msc. Ing. Geo. Benites Cañote Alexandra</span>
             </div>
         </div>
