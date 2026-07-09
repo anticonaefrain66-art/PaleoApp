@@ -25,16 +25,28 @@
             background-color: var(--dark-bg);
             /* TEXTURA DE FONDO SUTIL PARA MAYOR PROFUNDIDAD */
             background-image: 
-                linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)),
+                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
                 url('https://www.transparenttextures.com/patterns/dark-matter.png'); 
-            color: #fff;
             font-family: 'Rajdhani', sans-serif;
+            color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             overflow-x: hidden;
             padding: 20px;
+        }
+
+        /* EFECTO DE LUZ AMBIENTAL EN LAS ESQUINAS */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -10%;
+            left: -10%;
+            width: 40%;
+            height: 40%;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
+            z-index: -1;
         }
 
         /* --- CONTENEDOR PRINCIPAL (CARD) --- */
@@ -58,7 +70,7 @@
         /* --- CABECERA: LOGOS Y TÍTULOS --- */
         .header-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             margin-bottom: 35px;
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
@@ -118,6 +130,9 @@
         /* Resplandor dorado tenue detrás del logo central */
         .glow-bg {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 350px;
             height: 350px;
             background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
@@ -142,8 +157,6 @@
             margin-bottom: 25px;
             text-shadow: 0 0 10px rgba(212,175,55,0.7);
             cursor: pointer;
-            
-            /* Preparación para la animación de hover */
             transition: all 0.3s ease;
         }
 
@@ -172,6 +185,7 @@
         .content-text p {
             font-size: 1.3em;
             color: rgba(224, 224, 224, 0.85);
+            max-width: 700px;
             margin: 0 auto 35px;
             line-height: 1.6;
             font-weight: 300;
@@ -184,6 +198,7 @@
             margin: 30px auto;
             text-align: left;
         }
+
         .progress-label {
             display: flex;
             justify-content: space-between;
@@ -194,6 +209,7 @@
             font-weight: 600;
             letter-spacing: 1px;
         }
+
         .progress-bar {
             height: 5px;
             background: rgba(255,255,255,0.1);
@@ -201,12 +217,60 @@
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.1);
         }
+
         .progress-fill {
             height: 100%;
             width: 75%; /* Ajusta el progreso real aquí */
             background: var(--gold-gradient);
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
             animation: pulseProgressBar 2.5s infinite ease-in-out; /* Pulsación sutil */
+        }
+
+        /* --- BENTO GRID ESTILO VELADA --- */
+        .bento-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 40px;
+            width: 100%;
+        }
+
+        .bento-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: left;
+            transition: all var(--transition-speed);
+            cursor: default;
+        }
+
+        .bento-card:hover {
+            background: rgba(212, 175, 55, 0.08);
+            border-color: rgba(212, 175, 55, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .bento-card h4 {
+            color: var(--gold-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .bento-card p {
+            color: #aaa;
+            font-size: 0.9em;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Hacer la tarjeta central más llamativa (Highlight) */
+        .bento-card.highlight {
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0,0,0,0));
+            border-color: rgba(212, 175, 55, 0.3);
         }
 
         /* --- FOOTER PROFESIONAL --- */
@@ -238,7 +302,6 @@
 
         /* --- RESPONSIVO: AJUSTES PARA CELULARES --- */
         @media (max-width: 768px) {
-            .main-card { padding: 25px; border-radius: 15px; }
             .header-container { flex-direction: column; gap: 15px; text-align: center; }
             .logo-img { max-height: 60px; }
             .titles h1 { font-size: 1.5em; letter-spacing: 1.5px; }
@@ -247,6 +310,7 @@
             .content-text h2 { font-size: 1.7em; }
             .content-text p { font-size: 1.1em; }
             .badge-coming { font-size: 1.1em; padding: 8px 20px; }
+            .bento-features { grid-template-columns: 1fr; /* Una columna en celulares */ }
         }
     </style>
 </head>
@@ -254,12 +318,10 @@
 
     <div class="main-card">
         <div class="header-container">
-            <img src="ESCUDO UNC.png" alt="UNC" class="logo-img">
             <div class="titles">
                 <h1>Laboratorio de Paleontología</h1>
-                <p>Ingeniería Geológica - EPIG</p>
+                <p>Escuela Profesional de Ingeniería Geológica</p>
             </div>
-            <img src="ESCUDO ESCUELA.png" alt="EPIG" class="logo-img">
         </div>
 
         <div class="hero-visual">
@@ -284,8 +346,23 @@
             </div>
         </div>
 
+        <div class="bento-features">
+            <div class="bento-card">
+                <h4>Base de Datos</h4>
+                <p>Gestión estructurada y segura con SQL Server Management Studio.</p>
+            </div>
+            <div class="bento-card highlight">
+                <h4>Catálogo Interactivo</h4>
+                <p>Clasificación detallada de ammonites, bivalvos y gasterópodos.</p>
+            </div>
+            <div class="bento-card">
+                <h4>Motor Visual</h4>
+                <p>Desarrollo optimizado y renderizado en entorno C#.</p>
+            </div>
+        </div>
+
         <footer>
-            UNIVERSIDAD NACIONAL DE CAJAMARCA &copy; 2026 | Desarrollado por la EPIG
+            UNIVERSIDAD NACIONAL DE CAJAMARCA &copy; 2026 | Desarrollado para la EPIG
         </footer>
     </div>
 
