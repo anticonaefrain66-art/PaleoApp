@@ -8,10 +8,10 @@
     <style>
         /* --- VARIABLES GLOBALES Y RESET --- */
         :root {
-            --gold-primary: #D4AF37; /* Dorado técnico de la EPIG */
+            --gold-primary: #D4AF37; 
             --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            --dark-bg: #0a0a0a; /* Fondo ultra oscuro */
-            --glass-bg: rgba(20, 20, 20, 0.85); /* Efecto cristal para la card */
+            --dark-bg: #0a0a0a; 
+            --glass-bg: rgba(20, 20, 20, 0.85); 
             --transition-speed: 0.4s;
         }
 
@@ -23,7 +23,6 @@
 
         body {
             background-color: var(--dark-bg);
-            /* TEXTURA DE FONDO SUTIL PARA MAYOR PROFUNDIDAD */
             background-image: 
                 linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
                 url('https://www.transparenttextures.com/patterns/dark-matter.png'); 
@@ -37,7 +36,6 @@
             padding: 20px;
         }
 
-        /* EFECTO DE LUZ AMBIENTAL EN LAS ESQUINAS */
         body::before {
             content: "";
             position: fixed;
@@ -54,15 +52,13 @@
             width: 100%;
             max-width: 1000px;
             background: var(--glass-bg);
-            backdrop-filter: blur(10px); /* Desenfoque del fondo (efecto cristal) */
-            border: 1px solid rgba(212, 175, 55, 0.3); /* Borde dorado tenue */
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(212, 175, 55, 0.3); 
             border-radius: 20px;
             padding: 40px;
             box-shadow: 0 0 70px rgba(0,0,0,1), inset 0 0 20px rgba(212, 175, 55, 0.05);
             position: relative;
             text-align: center;
-            
-            /* ANIMACIÓN DE APARICIÓN SUAVE AL CARGAR LA PÁGINA */
             opacity: 0;
             animation: fadeInCard 1.2s ease-out forwards;
         }
@@ -77,22 +73,10 @@
             padding-bottom: 25px;
         }
 
-        .logo-img {
-            max-height: 80px;
-            width: auto;
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2));
-            transition: transform 0.3s ease;
-        }
-        
-        .logo-img:hover {
-            transform: scale(1.08) rotate(-2deg); /* Interactividad fina en logos */
-        }
-
         .titles h1 {
             font-family: 'Orbitron', sans-serif;
             font-size: 2.1em;
             margin: 0;
-            /* GRADIENTE DORADO METÁLICO EN EL TEXTO */
             background: var(--gold-gradient);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -121,13 +105,12 @@
 
         .main-logo-paleo {
             width: 280px;
-            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.4)); /* Resplandor rojo/marrón */
-            animation: floatLogo 5s ease-in-out infinite; /* El logo flota */
+            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.4)); 
+            animation: floatLogo 5s ease-in-out infinite; 
             z-index: 2;
             position: relative;
         }
 
-        /* Resplandor dorado tenue detrás del logo central */
         .glow-bg {
             position: absolute;
             top: 50%;
@@ -140,19 +123,20 @@
             z-index: 1;
         }
 
-        /* --- ETIQUETA 'MODO DESARROLLO' (INTERACTIVA) --- */
-        .badge-coming {
+        /* --- BOTÓN DE DESCARGA (ANTES MODO DESARROLLO) --- */
+        .btn-download {
             display: inline-block;
-            padding: 10px 30px;
+            padding: 15px 40px;
             background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
             border: 2px solid var(--gold-primary);
             border-radius: 6px;
             color: var(--gold-primary);
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.3em;
+            font-size: 1.4em;
             font-weight: bold;
             letter-spacing: 1px;
             text-transform: uppercase;
+            text-decoration: none;
             box-shadow: 0 5px 20px rgba(0,0,0,0.6);
             margin-bottom: 25px;
             text-shadow: 0 0 10px rgba(212,175,55,0.7);
@@ -160,12 +144,12 @@
             transition: all 0.3s ease;
         }
 
-        /* EFECTO HOVER DEL BOTÓN (BRILLO NEÓN DORADO) */
-        .badge-coming:hover {
-            transform: scale(1.05); /* Se agranda un poco */
+        .btn-download:hover {
+            transform: scale(1.05); 
             background: linear-gradient(to bottom, #333, #111);
             box-shadow: 0 0 35px rgba(212, 175, 55, 0.8), inset 0 0 10px rgba(212, 175, 55, 0.3);
-            border-color: #FCF6BA; /* Dorado más claro en el borde */
+            border-color: #FCF6BA; 
+            color: #fff;
         }
 
         /* --- CONTENIDO DE TEXTO --- */
@@ -189,41 +173,6 @@
             margin: 0 auto 35px;
             line-height: 1.6;
             font-weight: 300;
-        }
-
-        /* --- BARRA DE PROGRESO TÉCNICA (PULSANTE) --- */
-        .progress-container {
-            width: 100%;
-            max-width: 550px;
-            margin: 30px auto;
-            text-align: left;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9em;
-            color: var(--gold-primary);
-            margin-bottom: 8px;
-            text-transform: uppercase;
-            font-weight: 600;
-            letter-spacing: 1px;
-        }
-
-        .progress-bar {
-            height: 5px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 3px;
-            overflow: hidden;
-            border: 1px solid rgba(212, 175, 55, 0.1);
-        }
-
-        .progress-fill {
-            height: 100%;
-            width: 75%; /* Ajusta el progreso real aquí */
-            background: var(--gold-gradient);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.7);
-            animation: pulseProgressBar 2.5s infinite ease-in-out; /* Pulsación sutil */
         }
 
         /* --- BENTO GRID ESTILO VELADA --- */
@@ -267,10 +216,51 @@
             line-height: 1.4;
         }
 
-        /* Hacer la tarjeta central más llamativa (Highlight) */
         .bento-card.highlight {
             background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0,0,0,0));
             border-color: rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- TARJETA DE INSTRUCCIONES --- */
+        .instructions-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .instructions-card h3 {
+            color: var(--gold-primary);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3em;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .instructions-list {
+            display: inline-block;
+            text-align: left;
+            color: rgba(224, 224, 224, 0.85);
+            font-size: 1.1em;
+            line-height: 1.6;
+            padding-left: 20px;
+        }
+
+        .instructions-list li {
+            margin-bottom: 12px;
+        }
+
+        .instructions-list li strong {
+            color: #fff;
+        }
+
+        .warning-text {
+            color: #ff9d9d;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: block;
         }
 
         /* --- FOOTER PROFESIONAL --- */
@@ -283,7 +273,7 @@
             padding-top: 25px;
         }
 
-        /* --- ANIMACIONES (KEYFRAMES) --- */
+        /* --- ANIMACIONES --- */
         @keyframes fadeInCard {
             0% { opacity: 0; transform: translateY(20px); }
             100% { opacity: 1; transform: translateY(0); }
@@ -291,26 +281,19 @@
 
         @keyframes floatLogo {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-18px); } /* Flotación suave */
+            50% { transform: translateY(-18px); } 
         }
 
-        @keyframes pulseProgressBar {
-            0% { opacity: 0.7; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-            50% { opacity: 1; box-shadow: 0 0 20px rgba(212, 175, 55, 0.8); }
-            100% { opacity: 0.7; box-shadow: 0 0 10px rgba(212, 175, 55, 0.5); }
-        }
-
-        /* --- RESPONSIVO: AJUSTES PARA CELULARES --- */
+        /* --- RESPONSIVO --- */
         @media (max-width: 768px) {
             .header-container { flex-direction: column; gap: 15px; text-align: center; }
-            .logo-img { max-height: 60px; }
             .titles h1 { font-size: 1.5em; letter-spacing: 1.5px; }
             .titles p { font-size: 0.9em; }
             .main-logo-paleo { width: 200px; }
             .content-text h2 { font-size: 1.7em; }
             .content-text p { font-size: 1.1em; }
-            .badge-coming { font-size: 1.1em; padding: 8px 20px; }
-            .bento-features { grid-template-columns: 1fr; /* Una columna en celulares */ }
+            .btn-download { font-size: 1.1em; padding: 12px 25px; }
+            .bento-features { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -326,39 +309,47 @@
 
         <div class="hero-visual">
             <div class="glow-bg"></div>
+            <!-- Asegúrate de que LOUGO.png esté subido en tu repositorio -->
             <img src="LOUGO.png" alt="PaleoApp Logo Principal" class="main-logo-paleo">
         </div>
 
-        <div class="badge-coming">MODO DESARROLLO</div>
+        <!-- BOTÓN DE DESCARGA FINAL -->
+        <a href="https://github.com/anticonaefrain66-art/PaleoApp/releases/download/v1.0/CATALOGO.PALEO-EPIG.exe.zip" class="btn-download">
+            DESCARGAR APLICACIÓN
+        </a>
 
         <div class="content-text">
             <h2>Sistema de Catalogación Virtual</h2>
-            <p>Estamos digitalizando la colección paleontológica técnica de la EPIG para ofrecerte una herramienta de estudio de alta precisión, accesible desde cualquier dispositivo.</p>
+            <p>Hemos digitalizado la colección paleontológica técnica de la EPIG para ofrecerte una herramienta de estudio de alta precisión, completamente desarrollada para uso local.</p>
         </div>
 
-        <div class="progress-container">
-            <div class="progress-label">
-                <span>Estado actual: Catalogación de muestras</span>
-                <span>75%</span>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
-            </div>
-        </div>
-
+        <!-- SECCIÓN BENTO ESTILO VELADA ACTUALIZADA (SIN SQL) -->
         <div class="bento-features">
             <div class="bento-card">
-                <h4>Base de Datos</h4>
-                <p>Gestión estructurada y segura con SQL Server Management Studio.</p>
+                <h4>Gestión de Datos</h4>
+                <p>Sistema de información estructurado y autónomo desarrollado en entorno C#.</p>
             </div>
             <div class="bento-card highlight">
                 <h4>Catálogo Interactivo</h4>
-                <p>Clasificación detallada de ammonites, bivalvos y gasterópodos.</p>
+                <p>Clasificación fotográfica detallada de ammonites, bivalvos y gasterópodos.</p>
             </div>
             <div class="bento-card">
                 <h4>Motor Visual</h4>
-                <p>Desarrollo optimizado y renderizado en entorno C#.</p>
+                <p>Desarrollo y renderizado optimizado íntegramente en Visual Studio 2022.</p>
             </div>
+        </div>
+
+        <!-- SECCIÓN DE INSTRUCCIONES -->
+        <div class="instructions-card">
+            <h3>Instrucciones de Instalación</h3>
+            <ol class="instructions-list">
+                <li>Haz clic en el botón <strong>"DESCARGAR APLICACIÓN"</strong> de arriba.</li>
+                <li>Localiza el archivo <code>CATALOGO.PALEO-EPIG.exe.zip</code> en tu carpeta de descargas.</li>
+                <li>Haz <strong>clic derecho</strong> sobre el archivo y selecciona <strong>"Extraer todo..."</strong>.</li>
+                <li>Abre la nueva carpeta extraída y haz doble clic en <code>CATÁLOGO PALEO-EPIG.exe</code>.
+                    <span class="warning-text">⚠️ Importante: No separes el ejecutable de las carpetas de imágenes (Zonas), de lo contrario el catálogo no podrá mostrar los fósiles.</span>
+                </li>
+            </ol>
         </div>
 
         <footer>
