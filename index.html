@@ -3,359 +3,308 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PaleoApp EPIG - Laboratorio Virtual</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <title>Sistema de Catalogación Virtual - Paleontología</title>
     <style>
-        /* --- VARIABLES GLOBALES Y RESET --- */
-        :root {
-            --gold-primary: #D4AF37; 
-            --gold-gradient: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
-            --dark-bg: #0a0a0a; 
-            --glass-bg: rgba(20, 20, 20, 0.85); 
-            --transition-speed: 0.4s;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        /* Estilos generales "Estilo Velada" */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
         body {
-            background-color: var(--dark-bg);
-            background-image: 
-                linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)),
-                url('https://www.transparenttextures.com/patterns/dark-matter.png'); 
-            font-family: 'Rajdhani', sans-serif;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-            padding: 20px;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 40%;
-            height: 40%;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.05) 0%, transparent 70%);
-            z-index: -1;
-        }
-
-        /* --- CONTENEDOR PRINCIPAL (CARD) --- */
-        .main-card {
-            width: 100%;
-            max-width: 1000px;
-            background: var(--glass-bg);
-            backdrop-filter: blur(10px); 
-            border: 1px solid rgba(212, 175, 55, 0.3); 
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 0 70px rgba(0,0,0,1), inset 0 0 20px rgba(212, 175, 55, 0.05);
-            position: relative;
-            text-align: center;
-            opacity: 0;
-            animation: fadeInCard 1.2s ease-out forwards;
-        }
-
-        /* --- CABECERA: LOGOS Y TÍTULOS --- */
-        .header-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 35px;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            padding-bottom: 25px;
-        }
-
-        .titles h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.1em;
+            background: #0a0a0a;
+            background-image: radial-gradient(circle at 50% 0%, #1f1a10 0%, #0a0a0a 70%);
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
             margin: 0;
-            background: var(--gold-gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- NUEVO: PORTADA PRINCIPAL (HERO) --- */
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 70vh; /* Ocupa el 70% de la pantalla inicial */
+            background-image: url('LABORATORIO FISICO.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        /* Capa oscura sobre la imagen para que el texto resalte */
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(10,10,10,1) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            text-transform: uppercase;
             letter-spacing: 3px;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 0 20px rgba(255, 187, 0, 0.8), 0 0 40px rgba(255, 187, 0, 0.4);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: #ffbb00;
+            margin-top: 15px;
+            letter-spacing: 1px;
             text-transform: uppercase;
             font-weight: 700;
         }
 
-        .titles p {
-            margin: 8px 0 0;
-            font-weight: 500;
-            letter-spacing: 2px;
-            color: rgba(224, 224, 224, 0.7);
-            font-size: 1em;
-            text-transform: uppercase;
-        }
-
-        /* --- ZONA CENTRAL: EL LOGO PRINCIPAL --- */
-        .hero-visual {
+        /* --- CONTENEDOR PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: -50px auto 0; /* Sube un poco sobre la imagen principal */
+            padding: 40px 20px;
             position: relative;
-            margin: 50px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .main-logo-paleo {
-            width: 280px;
-            filter: drop-shadow(0 0 25px rgba(139, 0, 0, 0.4)); 
-            animation: floatLogo 5s ease-in-out infinite; 
             z-index: 2;
-            position: relative;
         }
 
-        .glow-bg {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 350px;
-            height: 350px;
-            background: radial-gradient(circle, rgba(212, 175, 55, 0.2) 0%, transparent 70%);
-            border-radius: 50%;
-            z-index: 1;
-        }
-
-        /* --- BOTÓN DE DESCARGA (ANTES MODO DESARROLLO) --- */
-        .btn-download {
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(to bottom, #2a2a2a, #1a1a1a);
-            border: 2px solid var(--gold-primary);
-            border-radius: 6px;
-            color: var(--gold-primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.4em;
-            font-weight: bold;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
-            margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(212,175,55,0.7);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .btn-download:hover {
-            transform: scale(1.05); 
-            background: linear-gradient(to bottom, #333, #111);
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.8), inset 0 0 10px rgba(212, 175, 55, 0.3);
-            border-color: #FCF6BA; 
-            color: #fff;
-        }
-
-        /* --- CONTENIDO DE TEXTO --- */
-        .content-text {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .content-text h2 {
-            font-size: 2.2em;
-            color: #fff;
-            margin-bottom: 20px;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        .content-text p {
-            font-size: 1.3em;
-            color: rgba(224, 224, 224, 0.85);
-            max-width: 700px;
-            margin: 0 auto 35px;
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        /* --- BENTO GRID ESTILO VELADA --- */
-        .bento-features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 40px;
-            width: 100%;
-        }
-
-        .bento-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: left;
-            transition: all var(--transition-speed);
-            cursor: default;
-        }
-
-        .bento-card:hover {
-            background: rgba(212, 175, 55, 0.08);
-            border-color: rgba(212, 175, 55, 0.5);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .bento-card h4 {
-            color: var(--gold-primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.1em;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-
-        .bento-card p {
-            color: #aaa;
-            font-size: 0.9em;
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .bento-card.highlight {
-            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), rgba(0,0,0,0));
-            border-color: rgba(212, 175, 55, 0.3);
-        }
-
-        /* --- TARJETA DE INSTRUCCIONES --- */
-        .instructions-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            border-radius: 12px;
-            padding: 30px;
-            margin-top: 30px;
+        /* Títulos de sección */
+        h2 {
             text-align: center;
-        }
-
-        .instructions-card h3 {
-            color: var(--gold-primary);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 1.3em;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .instructions-list {
-            display: inline-block;
-            text-align: left;
-            color: rgba(224, 224, 224, 0.85);
-            font-size: 1.1em;
-            line-height: 1.6;
-            padding-left: 20px;
-        }
-
-        .instructions-list li {
-            margin-bottom: 12px;
-        }
-
-        .instructions-list li strong {
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 40px;
+            margin-bottom: 40px;
             color: #fff;
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.5), 0 0 20px rgba(255, 187, 0, 0.3);
+            border-bottom: 2px solid rgba(255, 187, 0, 0.3);
+            padding-bottom: 15px;
         }
 
-        .warning-text {
-            color: #ff9d9d;
-            font-size: 0.9em;
-            margin-top: 5px;
+        /* Contenedores de grillas para imágenes */
+        .grid-gallery {
+            display: grid;
+            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            margin-bottom: 80px;
+        }
+
+        /* Estilo de las tarjetas de imagen */
+        .card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
             display: block;
+            filter: grayscale(30%) brightness(0.7);
+            transition: all 0.5s ease;
         }
 
-        /* --- FOOTER PROFESIONAL --- */
-        footer {
-            margin-top: 50px;
-            font-size: 0.85em;
-            color: rgba(102, 102, 102, 0.8);
-            letter-spacing: 1px;
-            border-top: 1px solid rgba(212, 175, 55, 0.1);
-            padding-top: 25px;
+        .card-title {
+            position: absolute;
+            bottom: -50px;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 0;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #ffbb00;
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+            border-top: 1px solid rgba(255, 187, 0, 0.3);
         }
 
-        /* --- ANIMACIONES --- */
-        @keyframes fadeInCard {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
+        /* Efectos WOW al pasar el mouse (Hover) */
+        .card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.6), 0 0 60px rgba(255, 187, 0, 0.2);
+            border: 1px solid rgba(255, 187, 0, 0.8);
+            z-index: 10;
         }
 
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-18px); } 
+        .card:hover img {
+            filter: grayscale(0%) brightness(1.1);
+            transform: scale(1.1);
         }
 
-        /* --- RESPONSIVO --- */
-        @media (max-width: 768px) {
-            .header-container { flex-direction: column; gap: 15px; text-align: center; }
-            .titles h1 { font-size: 1.5em; letter-spacing: 1.5px; }
-            .titles p { font-size: 0.9em; }
-            .main-logo-paleo { width: 200px; }
-            .content-text h2 { font-size: 1.7em; }
-            .content-text p { font-size: 1.1em; }
-            .btn-download { font-size: 1.1em; padding: 12px 25px; }
-            .bento-features { grid-template-columns: 1fr; }
+        .card:hover .card-title {
+            bottom: 0;
         }
+
+        /* Sección de Autores */
+        .authors-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            background: rgba(15, 15, 15, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid #333;
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.5);
+            margin-bottom: 50px;
+        }
+
+        .team-photo {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .team-photo img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(255, 187, 0, 0.3);
+            border: 2px solid rgba(255, 187, 0, 0.4);
+        }
+
+        .team-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .team-info h3 {
+            color: #ffbb00;
+            font-size: 2rem;
+            margin-top: 0;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.3);
+        }
+
+        .team-list {
+            list-style: none;
+            padding: 0;
+            font-size: 1.1rem;
+            line-height: 2;
+        }
+
+        .team-list li {
+            position: relative;
+            padding-left: 30px;
+            transition: color 0.3s ease;
+        }
+
+        .team-list li:hover {
+            color: #ffbb00;
+        }
+
+        .team-list li::before {
+            content: '⬡';
+            position: absolute;
+            left: 0;
+            color: #ffbb00;
+            font-size: 0.9rem;
+        }
+
+        .advisor {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(255, 187, 0, 0.3);
+            font-size: 1.2rem;
+        }
+
+        .advisor span {
+            color: #ffbb00;
+            font-weight: 900;
+            font-size: 1.3rem;
+            display: block;
+            margin-top: 5px;
+        }
+
     </style>
 </head>
 <body>
 
-    <div class="main-card">
-        <div class="header-container">
-            <div class="titles">
-                <h1>Laboratorio de Paleontología</h1>
-                <p>Escuela Profesional de Ingeniería Geológica</p>
-            </div>
-        </div>
-
-        <div class="hero-visual">
-            <div class="glow-bg"></div>
-            <!-- Asegúrate de que LOUGO.png esté subido en tu repositorio -->
-            <img src="LOUGO.png" alt="PaleoApp Logo Principal" class="main-logo-paleo">
-        </div>
-
-        <!-- BOTÓN DE DESCARGA FINAL -->
-        <a href="https://github.com/anticonaefrain66-art/PaleoApp/releases/download/v1.0/CATALOGO.PALEO-EPIG.exe.zip" class="btn-download">
-            DESCARGAR APLICACIÓN
-        </a>
-
-        <div class="content-text">
-            <h2>Sistema de Catalogación Virtual</h2>
-            <p>Hemos digitalizado la colección paleontológica técnica de la EPIG para ofrecerte una herramienta de estudio de alta precisión, completamente desarrollada para uso local.</p>
-        </div>
-
-        <!-- SECCIÓN BENTO ESTILO VELADA ACTUALIZADA (SIN SQL) -->
-        <div class="bento-features">
-            <div class="bento-card">
-                <h4>Gestión de Datos</h4>
-                <p>Sistema de información estructurado y autónomo desarrollado en entorno C#.</p>
-            </div>
-            <div class="bento-card highlight">
-                <h4>Catálogo Interactivo</h4>
-                <p>Clasificación fotográfica detallada de ammonites, bivalvos y gasterópodos.</p>
-            </div>
-            <div class="bento-card">
-                <h4>Motor Visual</h4>
-                <p>Desarrollo y renderizado optimizado íntegramente en Visual Studio 2022.</p>
-            </div>
-        </div>
-
-        <!-- SECCIÓN DE INSTRUCCIONES -->
-        <div class="instructions-card">
-            <h3>Instrucciones de Instalación</h3>
-            <ol class="instructions-list">
-                <li>Haz clic en el botón <strong>"DESCARGAR APLICACIÓN"</strong> de arriba.</li>
-                <li>Localiza el archivo <code>CATALOGO.PALEO-EPIG.exe.zip</code> en tu carpeta de descargas.</li>
-                <li>Haz <strong>clic derecho</strong> sobre el archivo y selecciona <strong>"Extraer todo..."</strong>.</li>
-                <li>Abre la nueva carpeta extraída y haz doble clic en <code>CATÁLOGO PALEO-EPIG.exe</code>.
-                    <span class="warning-text">⚠️ Importante: No separes el ejecutable de las carpetas de imágenes (Zonas), de lo contrario el catálogo no podrá mostrar los fósiles.</span>
-                </li>
-            </ol>
-        </div>
-
-        <footer>
-            UNIVERSIDAD NACIONAL DE CAJAMARCA &copy; 2026 | Desarrollado para la EPIG
-        </footer>
+<header class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Laboratorio de Paleontología</h1>
+        <p>Sistema de Catalogación Virtual EPIG</p>
     </div>
+</header>
+
+<div class="container">
+
+    <h2>Fase 1: Proceso Físico</h2>
+    <div class="grid-gallery">
+        <div class="card">
+            <img src="FÍSICO.jpeg" alt="Físico">
+            <div class="card-title">Trabajo Físico</div>
+        </div>
+        <div class="card">
+            <img src="ORDENAMIENTO FÍSICO.jpeg" alt="Ordenamiento Físico">
+            <div class="card-title">Ordenamiento</div>
+        </div>
+        <div class="card">
+            <img src="ESTANTES FISICOS.jpeg" alt="Estantes Físicos">
+            <div class="card-title">Organización en Estantes</div>
+        </div>
+        <div class="card">
+            <img src="FOTOGRAFIADO DE FOSILES.png" alt="Fotografiado de Fósiles">
+            <div class="card-title">Fotografiado Físico</div>
+        </div>
+    </div>
+
+    <h2>Fase 2: Proceso Virtual</h2>
+    <div class="grid-gallery" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+        <div class="card">
+            <img src="MACROFOTOGRAFÍA.jpeg" alt="Macrofotografía">
+            <div class="card-title">Macrofotografía</div>
+        </div>
+        <div class="card">
+            <img src="GENERACION DE MODELO 3D.jpeg" alt="Generación 3D">
+            <div class="card-title">Generación Modelo 3D</div>
+        </div>
+        <div class="card">
+            <img src="CREACION DE LA APLICACIÓN.png" alt="Creación de App">
+            <div class="card-title">Desarrollo de Aplicación</div>
+        </div>
+    </div>
+
+    <h2>Nuestro Equipo</h2>
+    <div class="authors-section">
+        <div class="team-photo">
+            <img src="INTEGRANTES.jpeg" alt="Integrantes del proyecto">
+        </div>
+        <div class="team-info">
+            <h3>Autores del Proyecto</h3>
+            <ul class="team-list">
+                <li>Anticona Fabian, José Efrain</li>
+                <li>Moreno Minchan, Tania Anais</li>
+                <li>Sánchez Cusquisiban, Darwin</li>
+                <li>Sánchez Ramos, Elvis</li>
+                <li>Valdivia Gallardo, Chrystopher David</li>
+            </ul>
+            
+            <div class="advisor">
+                <strong>Asesor:</strong> 
+                <span>Msc. Ing. Geo. Benites Cañote Alexandra</span>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 </body>
 </html>
