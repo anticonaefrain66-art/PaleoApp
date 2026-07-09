@@ -5,12 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Catalogación Virtual - Paleontología EPIG</title>
     <style>
-        /* Estilos generales - Estilo Velada / Gamer Oscuro */
+        /* --- ESTILOS GENERALES Y FUENTES --- */
         @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
 
         body {
-            background: #0a0a0a;
-            background-image: radial-gradient(circle at 50% 0%, #1f1a10 0%, #0a0a0a 80%);
+            background-color: #050505;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 187, 0, 0.05), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(255, 187, 0, 0.05), transparent 25%);
             color: #ffffff;
             font-family: 'Montserrat', sans-serif;
             margin: 0;
@@ -22,15 +24,16 @@
         .hero-section {
             position: relative;
             width: 100%;
-            height: 65vh;
+            height: 70vh;
             background-image: url('LABORATORIO FISICO.png');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed; /* Efecto Parallax */
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
 
         .hero-overlay {
@@ -39,38 +42,40 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(10,10,10,1) 100%);
+            background: linear-gradient(to bottom, rgba(5,5,5,0.6) 0%, rgba(5,5,5,1) 100%);
         }
 
         .hero-content {
             position: relative;
             z-index: 1;
             padding: 0 20px;
+            animation: fadeInDown 1.5s ease-out;
         }
 
         .hero-content h1 {
-            font-size: 4rem;
+            font-size: 4.5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             margin: 0;
             color: #fff;
-            text-shadow: 0 0 20px rgba(255, 187, 0, 0.7), 0 0 40px rgba(255, 187, 0, 0.4);
+            text-shadow: 0 0 20px rgba(255, 187, 0, 0.6), 0 0 50px rgba(255, 187, 0, 0.3);
         }
 
         .hero-content p {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #ffbb00;
             margin-top: 15px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             font-weight: 700;
+            text-shadow: 0 0 10px rgba(0,0,0,0.8);
         }
 
         /* --- CONTENEDOR PRINCIPAL --- */
         .container {
-            max-width: 1400px; /* Contenedor más ancho para que quepan las imágenes grandes */
-            margin: -30px auto 0;
+            max-width: 1400px;
+            margin: -40px auto 0;
             padding: 40px 20px;
             position: relative;
             z-index: 2;
@@ -79,212 +84,245 @@
         /* Títulos de las fases */
         h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 60px;
-            margin-bottom: 50px;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 187, 0, 0.4);
-            border-bottom: 2px solid rgba(255, 187, 0, 0.2);
-            padding-bottom: 15px;
+            letter-spacing: 3px;
+            margin-top: 80px;
+            margin-bottom: 60px;
+            color: #ffffff;
+            text-shadow: 0 0 15px rgba(255, 187, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
         }
 
-        /* Grillas de imágenes (TAMAÑO GRANDE) */
+        h2::before, h2::after {
+            content: '';
+            height: 3px;
+            width: 100px;
+            background: linear-gradient(90deg, transparent, #ffbb00, transparent);
+        }
+
+        /* --- GRILLAS DE IMÁGENES --- */
         .grid-gallery-fase1 {
             display: grid;
             gap: 40px;
-            /* Columnas de mínimo 450px para que se vean gigantes */
             grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            margin-bottom: 70px;
+            margin-bottom: 90px;
         }
 
         .grid-gallery-fase2 {
             display: grid;
             gap: 40px;
-            /* Columnas de mínimo 400px */
             grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            margin-bottom: 70px;
+            margin-bottom: 90px;
         }
 
-        /* Tarjetas con Brillo Neon en Hover */
+        /* Tarjetas con Efecto WOW */
         .card {
             position: relative;
             border-radius: 20px;
             overflow: hidden;
             background: #111;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             cursor: pointer;
-            border: 1px solid #222;
+            border: 2px solid rgba(255, 187, 0, 0.1);
         }
 
         .card img {
             width: 100%;
-            height: 380px; /* ALTURA AUMENTADA PARA HACERLAS MÁS GRANDES */
+            height: 400px;
             object-fit: cover;
             display: block;
-            filter: grayscale(25%) brightness(0.75);
-            transition: all 0.5s ease;
+            filter: grayscale(40%) contrast(1.2) brightness(0.6);
+            transition: all 0.6s ease;
         }
 
         .card-title {
             position: absolute;
-            bottom: -70px;
+            bottom: -80px;
             left: 0;
             width: 100%;
-            background: rgba(5, 5, 5, 0.95);
-            padding: 20px 0;
+            background: rgba(5, 5, 5, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 25px 0;
             text-align: center;
             font-weight: 900;
-            font-size: 1.2rem; /* TEXTO MÁS GRANDE */
+            font-size: 1.3rem;
             color: #ffbb00;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
             text-transform: uppercase;
-            border-top: 2px solid rgba(255, 187, 0, 0.3);
+            border-top: 1px solid rgba(255, 187, 0, 0.4);
+            box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
         }
 
-        /* Efectos WOW al pasar el mouse */
+        /* Reflejo de luz que atraviesa la tarjeta */
+        .card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transform: skewX(-25deg);
+            transition: 0.7s;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Efectos Hover de las Imágenes */
         .card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 0 35px rgba(255, 187, 0, 0.5), 0 0 70px rgba(255, 187, 0, 0.2);
-            border: 1px solid rgba(255, 187, 0, 0.8);
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 50px rgba(255, 187, 0, 0.3);
+            border-color: rgba(255, 187, 0, 0.8);
             z-index: 10;
         }
 
+        .card:hover::after {
+            left: 125%;
+        }
+
         .card:hover img {
-            filter: grayscale(0%) brightness(1.1);
-            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1.1) brightness(1.1);
+            transform: scale(1.08);
         }
 
         .card:hover .card-title {
             bottom: 0;
         }
 
-        /* --- PANEL DE DESCARGA PREMIUM CON LOGO --- */
+        /* --- PANEL DE DESCARGA CENTRADO Y ESPECTACULAR --- */
         .download-panel {
             display: flex;
+            flex-direction: column; /* Centra todo verticalmente */
             align-items: center;
             justify-content: center;
-            flex-wrap: wrap;
-            gap: 50px;
-            background: linear-gradient(135deg, #121212 0%, #1c1710 100%);
-            border: 2px solid rgba(255, 187, 0, 0.4);
-            border-radius: 25px;
-            padding: 50px;
-            margin: 80px 0;
-            box-shadow: 0 0 35px rgba(255, 187, 0, 0.2), inset 0 0 20px rgba(0,0,0,0.6);
+            text-align: center;
+            background: linear-gradient(135deg, rgba(20,20,20,0.9) 0%, rgba(10,10,10,0.95) 100%);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 187, 0, 0.3);
+            border-radius: 30px;
+            padding: 70px 40px;
+            margin: 100px auto;
+            max-width: 900px; /* Limita el ancho para que luzca mejor */
+            box-shadow: 0 0 50px rgba(255, 187, 0, 0.15), inset 0 0 30px rgba(0,0,0,0.8);
             position: relative;
         }
 
         .download-logo-area {
-            flex: 1;
-            min-width: 250px;
-            text-align: center;
+            margin-bottom: 30px;
         }
 
         .download-logo-area img {
-            max-width: 220px; /* LOGO MÁS GRANDE */
+            max-width: 250px;
             height: auto;
-            filter: drop-shadow(0 0 20px rgba(255, 187, 0, 0.6));
-            transition: transform 0.3s ease;
-        }
-
-        .download-logo-area img:hover {
-            transform: scale(1.05) rotate(2deg);
-        }
-
-        .download-action-area {
-            flex: 2;
-            min-width: 350px;
-            text-align: left;
-        }
-
-        @media (max-width: 768px) {
-            .download-action-area { text-align: center; }
+            filter: drop-shadow(0 0 25px rgba(255, 187, 0, 0.5));
+            animation: float 4s ease-in-out infinite;
         }
 
         .download-action-area h3 {
-            font-size: 2.3rem;
-            margin: 0 0 15px 0;
+            font-size: 2.8rem;
+            margin: 0 0 20px 0;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            background: linear-gradient(to right, #ffffff, #ffbb00);
+            letter-spacing: 2px;
+            background: linear-gradient(to bottom right, #ffffff, #ffbb00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         .download-action-area p {
-            color: #ccc;
-            font-size: 1.1rem;
-            margin: 0 0 30px 0;
+            color: #d1d1d1;
+            font-size: 1.3rem;
+            margin: 0 auto 40px auto;
             line-height: 1.6;
+            max-width: 600px;
         }
 
         .download-action-area p span {
             color: #ffbb00;
             font-weight: bold;
+            display: block;
+            margin-top: 10px;
         }
 
-        /* Botón de descarga con efecto latido */
+        /* Botón de descarga ÉPICO */
         .btn-descarga {
-            display: inline-block;
-            padding: 20px 45px;
-            font-size: 1.4rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 22px 55px;
+            font-size: 1.5rem;
             font-weight: 900;
-            color: #0a0a0a;
-            background: linear-gradient(45deg, #ffbb00, #ff8c00);
+            color: #050505;
+            background: linear-gradient(45deg, #ffcc33, #ff9900);
             text-decoration: none;
             text-transform: uppercase;
             border-radius: 50px;
-            letter-spacing: 1px;
-            box-shadow: 0 0 20px rgba(255, 187, 0, 0.4);
+            letter-spacing: 2px;
+            box-shadow: 0 0 30px rgba(255, 187, 0, 0.5);
             transition: all 0.3s ease;
-            border: 2px solid transparent;
-            animation: latido 2.5s infinite;
+            position: relative;
+            overflow: hidden;
+            animation: pulse-glow 2.5s infinite;
+        }
+
+        /* Brillo interior del botón */
+        .btn-descarga::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
         }
 
         .btn-descarga:hover {
-            transform: scale(1.05) translateY(-3px);
-            box-shadow: 0 0 35px rgba(255, 187, 0, 0.7);
-            background: #0a0a0a;
-            color: #ffbb00;
-            border: 2px solid #ffbb00;
+            transform: scale(1.08) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(255, 187, 0, 0.8);
             animation-play-state: paused;
         }
 
-        @keyframes latido {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); }
-            50% { transform: scale(1.03); box-shadow: 0 0 35px rgba(255, 187, 0, 0.6); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); }
+        .btn-descarga:hover::before {
+            left: 100%;
         }
 
         /* --- SECCIÓN DE AUTORES / EQUIPO --- */
         .authors-section {
             display: flex;
             flex-wrap: wrap;
-            gap: 50px;
+            gap: 60px;
             align-items: center;
-            background: rgba(15, 15, 15, 0.95);
-            padding: 50px;
-            border-radius: 20px;
-            border: 1px solid #333;
-            box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 0 10px 30px rgba(0,0,0,0.6);
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 60px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 187, 0, 0.15);
+            box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 20px 40px rgba(0,0,0,0.7);
             margin-bottom: 80px;
         }
 
         .team-photo {
-            flex: 1.2; /* Dándole más espacio a la foto del equipo */
+            flex: 1.2;
             min-width: 400px;
         }
 
         .team-photo img {
             width: 100%;
             border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 187, 0, 0.25);
-            border: 2px solid rgba(255, 187, 0, 0.4);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+            border: 2px solid rgba(255, 187, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        .team-photo img:hover {
+            transform: scale(1.03);
+            border-color: rgba(255, 187, 0, 0.8);
         }
 
         .team-info {
@@ -294,56 +332,91 @@
 
         .team-info h3 {
             color: #ffbb00;
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             margin-top: 0;
+            margin-bottom: 30px;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255,187,0,0.3);
         }
 
         .team-list {
             list-style: none;
             padding: 0;
-            font-size: 1.2rem;
-            line-height: 2.2;
+            font-size: 1.3rem;
+            line-height: 2.4;
         }
 
         .team-list li {
             position: relative;
-            padding-left: 35px;
-            transition: color 0.3s ease;
+            padding-left: 40px;
+            transition: all 0.3s ease;
+            color: #d1d1d1;
         }
 
         .team-list li:hover {
-            color: #ffbb00;
+            color: #ffffff;
+            transform: translateX(10px);
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.5);
         }
 
         .team-list li::before {
-            content: '⬡';
+            content: '⬢';
             position: absolute;
             left: 0;
             color: #ffbb00;
+            font-size: 1.1rem;
         }
 
         .advisor {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px dashed rgba(255, 187, 0, 0.3);
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px dashed rgba(255, 187, 0, 0.2);
             font-size: 1.2rem;
         }
 
         .advisor strong {
-            color: #fff;
+            color: #999;
             text-transform: uppercase;
-            font-size: 1rem;
-            letter-spacing: 1px;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
         }
 
         .advisor span {
             color: #ffbb00;
-            font-weight: 700;
-            font-size: 1.3rem;
+            font-weight: 900;
+            font-size: 1.5rem;
             display: block;
-            margin-top: 8px;
+            margin-top: 10px;
+            text-shadow: 0 0 10px rgba(255, 187, 0, 0.4);
+        }
+
+        /* --- KEYFRAMES --- */
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); transform: scale(1); }
+            50% { box-shadow: 0 0 40px rgba(255, 187, 0, 0.8); transform: scale(1.03); }
+            100% { box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); transform: scale(1); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero-content h1 { font-size: 3rem; }
+            .grid-gallery-fase1, .grid-gallery-fase2 { grid-template-columns: 1fr; }
+            .download-panel { padding: 50px 20px; }
+            .download-action-area h3 { font-size: 2rem; }
+            .authors-section { padding: 40px 20px; }
+            .team-photo { min-width: 100%; }
         }
     </style>
 </head>
@@ -395,14 +468,18 @@
         </div>
     </div>
 
+    <!-- EL PANEL DE DESCARGA AHORA ESTÁ CENTRADO E INCLUYE EL ENLACE CORRECTO -->
     <div class="download-panel">
         <div class="download-logo-area">
             <img src="LOGO.png" alt="Logo EPIG Paleontología">
         </div>
         <div class="download-action-area">
             <h3>Catálogo Virtual Interactivo</h3>
-            <p>Explora la colección fósil en 3D de Cajamarca de manera digital. <br>Compatible con <span>Windows (PC) | Motor Gráfico Unity</span></p>
-            <a href="TU_LINK_DE_DESCARGA_AQUI" class="btn-descarga" target="_blank">
+            <p>Explora la colección fósil en 3D de Cajamarca de manera digital. 
+               <span>Compatible con Windows (PC) | Motor Gráfico Unity</span>
+            </p>
+            <!-- AQUÍ ESTÁ EL ENLACE DIRECTO DE TU REPOSITORIO -->
+            <a href="https://github.com/anticonaefrain66-art/PaleoApp/releases/download/v1.0/CATALOGO.PALEO-EPIG.exe.zip" class="btn-descarga">
                 📥 Descargar Aplicación
             </a>
         </div>
