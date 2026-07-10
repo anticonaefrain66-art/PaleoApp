@@ -3,511 +3,378 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Catalogación Virtual - Paleontología EPIG</title>
+    <title>PaleoApp | Virtualización EPIG</title>
+    <!-- Fuentes para el efecto WOW (Orbitron para títulos, Montserrat para lectura) -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
-        /* --- ESTILOS GENERALES Y FUENTES --- */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap');
+        /* --- VARIABLES Y RESET --- */
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #FFDF73;
+            --dark-bg: #050505;
+            --panel-bg: rgba(15, 15, 15, 0.7);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #050505;
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(255, 187, 0, 0.05), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(255, 187, 0, 0.05), transparent 25%);
-            color: #ffffff;
+            background-color: var(--dark-bg);
+            background-image: radial-gradient(circle at 50% 0%, #1a160c 0%, var(--dark-bg) 70%);
+            color: #fff;
             font-family: 'Montserrat', sans-serif;
-            margin: 0;
-            padding: 0;
             overflow-x: hidden;
         }
 
-        /* --- PORTADA PRINCIPAL (HERO BANNER) --- */
+        /* --- VISTA PRINCIPAL (HERO) --- */
         .hero-section {
-            position: relative;
-            width: 100%;
-            height: 70vh;
-            background-image: url('LABORATORIO FISICO.png');
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(5,5,5,0.7), rgba(5,5,5,0.95)), url('LABORATORIO FISICO.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Efecto Parallax */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.9);
-        }
-
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(5,5,5,0.6) 0%, rgba(5,5,5,1) 100%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-            padding: 0 20px;
-            animation: fadeInDown 1.5s ease-out;
-        }
-
-        .hero-content h1 {
-            font-size: 4.5rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin: 0;
-            color: #fff;
-            text-shadow: 0 0 20px rgba(255, 187, 0, 0.6), 0 0 50px rgba(255, 187, 0, 0.3);
-        }
-
-        .hero-content p {
-            font-size: 1.6rem;
-            color: #ffbb00;
-            margin-top: 15px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(0,0,0,0.8);
-        }
-
-        /* --- CONTENEDOR PRINCIPAL --- */
-        .container {
-            max-width: 1400px;
-            margin: -40px auto 0;
+            background-attachment: fixed;
             padding: 40px 20px;
-            position: relative;
-            z-index: 2;
         }
 
-        /* Títulos de las fases */
-        h2 {
-            text-align: center;
-            font-size: 2.8rem;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-top: 80px;
-            margin-bottom: 60px;
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(255, 187, 0, 0.3);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        h2::before, h2::after {
-            content: '';
-            height: 3px;
-            width: 100px;
-            background: linear-gradient(90deg, transparent, #ffbb00, transparent);
-        }
-
-        /* --- GRILLAS DE IMÁGENES --- */
-        .grid-gallery-fase1 {
-            display: grid;
-            gap: 40px;
-            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-            margin-bottom: 90px;
-        }
-
-        .grid-gallery-fase2 {
-            display: grid;
-            gap: 40px;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-            margin-bottom: 90px;
-        }
-
-        /* Tarjetas con Efecto WOW */
-        .card {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            background: #111;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            cursor: pointer;
-            border: 2px solid rgba(255, 187, 0, 0.1);
-        }
-
-        .card img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            display: block;
-            filter: grayscale(40%) contrast(1.2) brightness(0.6);
-            transition: all 0.6s ease;
-        }
-
-        .card-title {
-            position: absolute;
-            bottom: -80px;
-            left: 0;
-            width: 100%;
-            background: rgba(5, 5, 5, 0.9);
-            backdrop-filter: blur(10px);
-            padding: 25px 0;
-            text-align: center;
-            font-weight: 900;
-            font-size: 1.3rem;
-            color: #ffbb00;
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            text-transform: uppercase;
-            border-top: 1px solid rgba(255, 187, 0, 0.4);
-            box-shadow: 0 -10px 20px rgba(0,0,0,0.5);
-        }
-
-        /* Reflejo de luz que atraviesa la tarjeta */
-        .card::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
-            transform: skewX(-25deg);
-            transition: 0.7s;
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* Efectos Hover de las Imágenes */
-        .card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 20px 50px rgba(255, 187, 0, 0.3);
-            border-color: rgba(255, 187, 0, 0.8);
-            z-index: 10;
-        }
-
-        .card:hover::after {
-            left: 125%;
-        }
-
-        .card:hover img {
-            filter: grayscale(0%) contrast(1.1) brightness(1.1);
-            transform: scale(1.08);
-        }
-
-        .card:hover .card-title {
-            bottom: 0;
-        }
-
-        /* --- PANEL DE DESCARGA CENTRADO Y ESPECTACULAR --- */
-        .download-panel {
-            display: flex;
-            flex-direction: column; /* Centra todo verticalmente */
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, rgba(20,20,20,0.9) 0%, rgba(10,10,10,0.95) 100%);
-            backdrop-filter: blur(15px);
-            border: 2px solid rgba(255, 187, 0, 0.3);
-            border-radius: 30px;
-            padding: 70px 40px;
-            margin: 100px auto;
-            max-width: 900px; /* Limita el ancho para que luzca mejor */
-            box-shadow: 0 0 50px rgba(255, 187, 0, 0.15), inset 0 0 30px rgba(0,0,0,0.8);
-            position: relative;
-        }
-
-        .download-logo-area {
-            margin-bottom: 30px;
-        }
-
-        .download-logo-area img {
-            max-width: 250px;
-            height: auto;
-            filter: drop-shadow(0 0 25px rgba(255, 187, 0, 0.5));
+        .hero-escudo {
+            height: 130px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
             animation: float 4s ease-in-out infinite;
         }
 
-        .download-action-area h3 {
-            font-size: 2.8rem;
-            margin: 0 0 20px 0;
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
             font-weight: 900;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            background: linear-gradient(to bottom right, #ffffff, #ffbb00);
+            letter-spacing: 3px;
+            background: linear-gradient(to right, #fff, var(--gold-light));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
         }
 
-        .download-action-area p {
-            color: #d1d1d1;
-            font-size: 1.3rem;
-            margin: 0 auto 40px auto;
-            line-height: 1.6;
-            max-width: 600px;
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--gold);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            font-weight: 500;
         }
 
-        .download-action-area p span {
-            color: #ffbb00;
-            font-weight: bold;
-            display: block;
-            margin-top: 10px;
-        }
-
-        /* Botón de descarga ÉPICO */
-        .btn-descarga {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            padding: 22px 55px;
+        /* BOTÓN DE DESCARGA ÉPICO */
+        .btn-mega {
+            display: inline-block;
+            padding: 20px 50px;
+            font-family: 'Orbitron', sans-serif;
             font-size: 1.5rem;
             font-weight: 900;
-            color: #050505;
-            background: linear-gradient(45deg, #ffcc33, #ff9900);
+            color: #000;
+            background: linear-gradient(45deg, var(--gold), var(--gold-light));
             text-decoration: none;
-            text-transform: uppercase;
             border-radius: 50px;
+            text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 0 30px rgba(255, 187, 0, 0.5);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            animation: pulse-glow 2.5s infinite;
+            animation: latido 2s infinite;
         }
 
-        /* Brillo interior del botón */
-        .btn-descarga::before {
-            content: '';
-            position: absolute;
-            top: 0; left: -100%;
-            width: 100%; height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent);
-            transition: 0.5s;
-        }
-
-        .btn-descarga:hover {
-            transform: scale(1.08) translateY(-5px);
-            box-shadow: 0 15px 40px rgba(255, 187, 0, 0.8);
+        .btn-mega:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.8);
             animation-play-state: paused;
+            color: #000;
         }
 
-        .btn-descarga:hover::before {
-            left: 100%;
+        /* INSTRUCCIONES DE DESCARGA EN CRISTAL */
+        .glass-instructions {
+            margin-top: 50px;
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 700px;
+            text-align: left;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
         }
 
-        /* --- SECCIÓN DE AUTORES / EQUIPO --- */
-        .authors-section {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 60px;
-            align-items: center;
-            background: rgba(15, 15, 15, 0.8);
-            backdrop-filter: blur(10px);
-            padding: 60px;
-            border-radius: 25px;
-            border: 1px solid rgba(255, 187, 0, 0.15);
-            box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 20px 40px rgba(0,0,0,0.7);
+        .glass-instructions h3 {
+            color: var(--gold-light);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            text-align: center;
+            border-bottom: 1px dashed rgba(212, 175, 55, 0.3);
+            padding-bottom: 10px;
+        }
+
+        .glass-instructions ul {
+            list-style: none;
+            color: #ddd;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .glass-instructions li::before {
+            content: '⚙️';
+            margin-right: 10px;
+        }
+
+        .warning-text {
+            display: block;
+            margin-top: 15px;
+            color: #ff6b6b;
+            font-size: 0.95rem;
+            text-align: center;
+            font-weight: 800;
+        }
+
+        /* --- CONTENIDO PRINCIPAL --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.2rem;
+            color: #fff;
+            margin-bottom: 50px;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+            text-transform: uppercase;
+        }
+
+        .section-title span { color: var(--gold); }
+
+        /* GALERÍAS MÁS PEQUEÑAS Y DISTRIBUIDAS */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
             margin-bottom: 80px;
         }
 
+        .image-card {
+            background: #111;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #222;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .image-card img {
+            width: 100%;
+            height: 180px; /* Tamaño reducido para mayor elegancia */
+            object-fit: cover;
+            filter: grayscale(40%) brightness(0.7);
+            transition: all 0.5s ease;
+        }
+
+        .image-card h4 {
+            padding: 15px;
+            text-align: center;
+            font-size: 1rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 0;
+            background: #0a0a0a;
+        }
+
+        .image-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.2);
+        }
+
+        .image-card:hover img {
+            filter: grayscale(0%) brightness(1.1);
+            transform: scale(1.05);
+        }
+
+        /* --- SECCIÓN DE AUTORES (INTACTA PERO ESTILIZADA) --- */
+        .authors-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+            background: rgba(15, 15, 15, 0.8);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+        }
+
         .team-photo {
-            flex: 1.2;
-            min-width: 400px;
+            flex: 1.5;
+            min-width: 300px;
         }
 
         .team-photo img {
             width: 100%;
-            border-radius: 15px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
-            border: 2px solid rgba(255, 187, 0, 0.3);
-            transition: transform 0.4s ease;
-        }
-
-        .team-photo img:hover {
-            transform: scale(1.03);
-            border-color: rgba(255, 187, 0, 0.8);
+            border-radius: 12px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
         }
 
         .team-info {
             flex: 1;
-            min-width: 350px;
+            min-width: 300px;
         }
 
-        .team-info h3 {
-            color: #ffbb00;
-            font-size: 2.5rem;
-            margin-top: 0;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255,187,0,0.3);
-        }
-
-        .team-list {
+        .team-info ul {
             list-style: none;
-            padding: 0;
-            font-size: 1.3rem;
-            line-height: 2.4;
-        }
-
-        .team-list li {
-            position: relative;
-            padding-left: 40px;
-            transition: all 0.3s ease;
-            color: #d1d1d1;
-        }
-
-        .team-list li:hover {
-            color: #ffffff;
-            transform: translateX(10px);
-            text-shadow: 0 0 10px rgba(255, 187, 0, 0.5);
-        }
-
-        .team-list li::before {
-            content: '⬢';
-            position: absolute;
-            left: 0;
-            color: #ffbb00;
             font-size: 1.1rem;
+            line-height: 2;
+            color: #ddd;
         }
 
-        .advisor {
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 2px dashed rgba(255, 187, 0, 0.2);
-            font-size: 1.2rem;
+        .team-info ul li::before {
+            content: '⬡';
+            color: var(--gold);
+            margin-right: 10px;
         }
 
-        .advisor strong {
-            color: #999;
-            text-transform: uppercase;
-            font-size: 1.1rem;
+        .advisor-box {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px dashed rgba(212, 175, 55, 0.3);
+        }
+
+        .advisor-box strong { color: #888; font-size: 0.9rem; text-transform: uppercase; }
+        .advisor-box span { display: block; color: var(--gold-light); font-size: 1.2rem; font-weight: bold; margin-top: 5px; }
+
+        /* FOOTER FINAL */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #000;
+            border-top: 1px solid #222;
+            font-family: 'Orbitron', sans-serif;
+            color: var(--gold);
             letter-spacing: 2px;
+            font-size: 1rem;
         }
 
-        .advisor span {
-            color: #ffbb00;
-            font-weight: 900;
-            font-size: 1.5rem;
-            display: block;
-            margin-top: 10px;
-            text-shadow: 0 0 10px rgba(255, 187, 0, 0.4);
+        /* KEYFRAMES */
+        @keyframes latido {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+            50% { transform: scale(1.03); box-shadow: 0 0 40px rgba(212, 175, 55, 0.7); }
+            100% { transform: scale(1); box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
         }
-
-        /* --- KEYFRAMES --- */
-        @keyframes pulse-glow {
-            0% { box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); transform: scale(1); }
-            50% { box-shadow: 0 0 40px rgba(255, 187, 0, 0.8); transform: scale(1.03); }
-            100% { box-shadow: 0 0 20px rgba(255, 187, 0, 0.4); transform: scale(1); }
-        }
-
         @keyframes float {
-            0% { transform: translateY(0px); }
+            0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- RESPONSIVE --- */
-        @media (max-width: 900px) {
-            .hero-content h1 { font-size: 3rem; }
-            .grid-gallery-fase1, .grid-gallery-fase2 { grid-template-columns: 1fr; }
-            .download-panel { padding: 50px 20px; }
-            .download-action-area h3 { font-size: 2rem; }
-            .authors-section { padding: 40px 20px; }
-            .team-photo { min-width: 100%; }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.2rem; }
+            .btn-mega { font-size: 1.1rem; padding: 15px 30px; }
+            .authors-container { padding: 25px; }
         }
     </style>
 </head>
 <body>
 
-<header class="hero-section">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-        <h1>Laboratorio de Paleontología</h1>
-        <p>Sistema de Catalogación Virtual EPIG</p>
-    </div>
-</header>
+    <!-- PRIMERA VISTA: ESCUDO, BOTÓN E INSTRUCCIONES -->
+    <section class="hero-section">
+        <img src="ESCUDO UNC.png" alt="Escudo Universidad" class="hero-escudo">
+        <h1 class="hero-title">Catálogo Virtual</h1>
+        <p class="hero-subtitle">Colección Paleontológica Fósil</p>
 
-<div class="container">
+        <!-- RECUERDA CAMBIAR 'TU-USUARIO-GITHUB' AQUÍ -->
+        <a href="https://github.com/TU-USUARIO-GITHUB/PaleoApp/releases/download/v1.0/CATALOGO.PALEO-EPIG.exe.zip" class="btn-mega">
+            📥 Descargar para Windows
+        </a>
 
-    <h2>Fase 1: Proceso Físico</h2>
-    <div class="grid-gallery-fase1">
-        <div class="card">
-            <img src="FÍSICO.jpeg" alt="Trabajo Físico">
-            <div class="card-title">Trabajo Físico</div>
-        </div>
-        <div class="card">
-            <img src="ORDENAMIENTO FÍSICO.jpeg" alt="Ordenamiento">
-            <div class="card-title">Ordenamiento</div>
-        </div>
-        <div class="card">
-            <img src="ESTANTES FISICOS.jpeg" alt="Organización">
-            <div class="card-title">Organización en Estantes</div>
-        </div>
-        <div class="card">
-            <img src="FOTOGRAFIADO DE FOSILES.png" alt="Fotografiado">
-            <div class="card-title">Fotografiado Físico</div>
-        </div>
-    </div>
-
-    <h2>Fase 2: Proceso Virtual</h2>
-    <div class="grid-gallery-fase2">
-        <div class="card">
-            <img src="MACROFOTOGRAFÍA.jpeg" alt="Macrofotografía">
-            <div class="card-title">Macrofotografía</div>
-        </div>
-        <div class="card">
-            <img src="GENERACION DE MODELO 3D.jpeg" alt="Modelado 3D">
-            <div class="card-title">Generación Modelo 3D</div>
-        </div>
-        <div class="card">
-            <img src="CREACION DE LA APLICACIÓN.png" alt="Desarrollo App">
-            <div class="card-title">Desarrollo de Aplicación</div>
-        </div>
-    </div>
-
-    <!-- EL PANEL DE DESCARGA AHORA ESTÁ CENTRADO E INCLUYE EL ENLACE CORRECTO -->
-    <div class="download-panel">
-        <div class="download-logo-area">
-            <img src="LOGO.png" alt="Logo EPIG Paleontología">
-        </div>
-        <div class="download-action-area">
-            <h3>Catálogo Virtual Interactivo</h3>
-            <p>Explora la colección fósil en 3D de Cajamarca de manera digital. 
-               <span>Compatible con Windows (PC) | Motor Gráfico Unity</span>
-            </p>
-            <!-- AQUÍ ESTÁ EL ENLACE DIRECTO DE TU REPOSITORIO -->
-            <a href="https://github.com/anticonaefrain66-art/PaleoApp/releases/download/v1.0/CATALOGO.PALEO-EPIG.exe.zip" class="btn-descarga">
-                📥 Descargar Aplicación
-            </a>
-        </div>
-    </div>
-
-    <h2>Nuestro Equipo</h2>
-    <div class="authors-section">
-        <div class="team-photo">
-            <img src="INTEGRANTES.jpeg" alt="Integrantes EPIG">
-        </div>
-        <div class="team-info">
-            <h3>Autores del Proyecto</h3>
-            <ul class="team-list">
-                <li>Anticona Fabian, José Efrain</li>
-                <li>Moreno Minchan, Tania Anais</li>
-                <li>Sánchez Cusquisiban, Darwin</li>
-                <li>Sánchez Ramos, Elvis</li>
-                <li>Valdivia Gallardo, Chrystopher David</li>
+        <div class="glass-instructions">
+            <h3>Guía Rápida de Instalación (PC)</h3>
+            <ul>
+                <li>Presiona el botón superior para descargar el paquete <b>.zip</b>.</li>
+                <li>Haz clic derecho sobre el archivo descargado y selecciona <b>"Extraer todo..."</b>.</li>
+                <li>Abre la nueva carpeta y ejecuta la aplicación <b>CATÁLOGO PALEO-EPIG.exe</b>.</li>
             </ul>
-            
-            <div class="advisor">
-                <strong>Asesor del Proyecto:</strong>
-                <span>Msc. Ing. Geo. Benites Cañote Alexandra</span>
+            <span class="warning-text">⚠️ IMPORTANTE: No separes el archivo .exe de sus carpetas de imágenes. Todo debe permanecer junto tras extraerlo.</span>
+        </div>
+    </section>
+
+    <!-- GALERÍAS (TAMAÑO REDUCIDO Y ELEGANTE) -->
+    <div class="container">
+        
+        <h2 class="section-title">Fase 1: <span>Proceso Físico</span></h2>
+        <div class="gallery-grid">
+            <div class="image-card">
+                <img src="FÍSICO.jpeg" alt="Físico">
+                <h4>Trabajo Físico</h4>
+            </div>
+            <div class="image-card">
+                <img src="ORDENAMIENTO FÍSICO.jpeg" alt="Ordenamiento">
+                <h4>Ordenamiento</h4>
+            </div>
+            <div class="image-card">
+                <img src="ESTANTES FISICOS.jpeg" alt="Estantes">
+                <h4>Organización</h4>
+            </div>
+            <div class="image-card">
+                <img src="FOTOGRAFIADO DE FOSILES.png" alt="Fotografiado">
+                <h4>Fotografiado</h4>
             </div>
         </div>
+
+        <h2 class="section-title">Fase 2: <span>Proceso Virtual</span></h2>
+        <div class="gallery-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+            <div class="image-card">
+                <img src="MACROFOTOGRAFÍA.jpeg" alt="Macrofotografía">
+                <h4>Macrofotografía</h4>
+            </div>
+            <div class="image-card">
+                <img src="GENERACION DE MODELO 3D.jpeg" alt="3D">
+                <h4>Modelado 3D</h4>
+            </div>
+            <div class="image-card">
+                <img src="CREACION DE LA APLICACIÓN.png" alt="App">
+                <h4>Desarrollo Interfaz</h4>
+            </div>
+        </div>
+
+        <!-- AUTORES -->
+        <h2 class="section-title">Equipo de <span>Desarrollo</span></h2>
+        <div class="authors-container">
+            <div class="team-photo">
+                <img src="INTEGRANTES.jpeg" alt="Equipo de Trabajo EPIG">
+            </div>
+            <div class="team-info">
+                <ul>
+                    <li>Anticona Fabián, José Efraín</li>
+                    <li>Moreno Minchán, Tania Anais</li>
+                    <li>Sánchez Cusquisiban, Darwin</li>
+                    <li>Sánchez Ramos, Elvis</li>
+                    <li>Valdivia Gallardo, Chrystopher David</li>
+                </ul>
+                <div class="advisor-box">
+                    <strong>Supervisión y Asesoría:</strong>
+                    <span>Msc. Ing. Geo. Benites Cañote Alexandra</span>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-</div>
+    <!-- CIERRE OFICIAL SOLICITADO -->
+    <footer>
+        CREADO PARA LA EPIG
+    </footer>
 
 </body>
 </html>
