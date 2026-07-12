@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PaleoApp | Virtualización EPIG</title>
-    <!-- Fuentes para el efecto WOW (Orbitron para títulos, Montserrat para lectura) -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;800&family=Orbitron:wght@500;700;900&display=swap" rel="stylesheet">
     <style>
         /* --- VARIABLES Y RESET --- */
@@ -156,7 +155,37 @@
 
         .section-title span { color: var(--gold); }
 
-        /* GALERÍAS MÁS PEQUEÑAS Y DISTRIBUIDAS */
+        /* --- CONTENEDOR EFECTO WOW PARA YOUTUBE --- */
+        .video-container-youtube {
+            max-width: 850px;
+            margin: 0 auto 80px auto;
+            background: #111;
+            padding: 12px;
+            border-radius: 24px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            /* Animación de resplandor de fondo */
+            animation: borderGlow 6s linear infinite;
+        }
+
+        .video-responsive {
+            position: relative;
+            padding-bottom: 56.25%; /* Relación de aspecto 16:9 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 14px;
+            background: #000;
+        }
+
+        .video-responsive iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* GALERÍAS */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -277,6 +306,10 @@
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-15px); }
         }
+        @keyframes borderGlow {
+            0%, 100% { box-shadow: 0 15px 35px rgba(0,0,0,0.9), 0 0 15px rgba(212, 175, 55, 0.2); border-color: rgba(212, 175, 55, 0.2); }
+            50% { box-shadow: 0 15px 35px rgba(0,0,0,0.9), 0 0 30px rgba(212, 175, 55, 0.5); border-color: rgba(212, 175, 55, 0.6); }
+        }
 
         @media (max-width: 768px) {
             .hero-title { font-size: 2.2rem; }
@@ -287,13 +320,11 @@
 </head>
 <body>
 
-    <!-- PRIMERA VISTA: ESCUDO, BOTÓN E INSTRUCCIONES -->
     <section class="hero-section">
         <img src="ESCUDO UNC.png" alt="Escudo Universidad" class="hero-escudo">
         <h1 class="hero-title">Catálogo Virtual</h1>
         <p class="hero-subtitle">Colección Paleontológica Fósil</p>
 
-        <!-- ENLACE 100% ACTUALIZADO CON EL NUEVO NOMBRE DEL ARCHIVO ZIP -->
         <a href="https://github.com/paleo-epig/PaleoApp/releases/download/v1.0/CATALOGO.VIRTUAL.zip" class="btn-mega">
             📥 Descargar para Windows
         </a>
@@ -309,8 +340,14 @@
         </div>
     </section>
 
-    <!-- GALERÍAS -->
     <div class="container">
+        
+        <h2 class="section-title">Video <span>Tutorial Paso a Paso</span></h2>
+        <div class="video-container-youtube">
+            <div class="video-responsive">
+                <iframe src="https://www.youtube.com/embed/6sxgMmJmxcY?si=yowtFejcXh8NvAN7" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+        </div>
         
         <h2 class="section-title">Fase 1: <span>Proceso Físico</span></h2>
         <div class="gallery-grid">
@@ -348,7 +385,6 @@
             </div>
         </div>
 
-        <!-- AUTORES -->
         <h2 class="section-title">Equipo de <span>Desarrollo</span></h2>
         <div class="authors-container">
             <div class="team-photo">
@@ -371,7 +407,6 @@
 
     </div>
 
-    <!-- CIERRE OFICIAL -->
     <footer>
         CREADO PARA LA EPIG
     </footer>
